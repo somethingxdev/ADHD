@@ -7,7 +7,6 @@ import LoaderIcon from '@/icons/loader.svg';
 import FocusIcon from '@/icons/focus.svg';
 import RouterIcon from '@/icons/router.svg';
 import ComponentIcon from '@/icons/component.svg';
-import testStartImage from '@/assets/test-start.png';
 
 interface Item {
   title: string;
@@ -39,24 +38,24 @@ const items: Item[] = [
 ];
 ---
 
-<section class="py-20">
+<section class="py-10 lg:py-20">
   <div class="container">
-    <div class="flex items-center justify-between gap-14 mb-8">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-14 md:mb-8">
       <div class="max-w-3xl">
-        <h1 class="text-4xl md:text-6xl font-semibold mb-5 leading-tight">Думаете, у вас СДВГ? Пройдите бесплатный тест за 2 минуты</h1>
+        <h1 class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold mb-5 leading-tight">Думаете, у вас СДВГ? Пройдите бесплатный тест за 2 минуты</h1>
         <p class="text-muted-foreground text-lg mb-8">Узнайте, есть ли у вас признаки синдрома дефицита внимания и получите персональные рекомендации</p>
 
-        <div class="flex items-center gap-3">
-          <Button>Пройти тест бесплатно <ArrowRight /></Button>
-          <Button variant="outline"> Узнать больше</Button>
+        <div class="flex flex-col sm:flex-row w-full items-center gap-3">
+          <Button class="w-full sm:w-auto" href="/test">Пройти тест бесплатно <ArrowRight /></Button>
+          <Button class="w-full sm:w-auto" variant="outline"> Узнать больше</Button>
         </div>
       </div>
-      <div>
+      <div class="shrink-0 max-w-xs xl:max-w-full">
         <Image src={import('@/assets/hero.png')} alt="Hero" />
       </div>
     </div>
 
-    <div class="grid grid-cols-4 gap-4">
+    <div class="grid  sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {
         items.map((item) => (
           <div class="bg-card p-4 flex items-center gap-4 rounded-xl ring-border ring-1">

@@ -6,27 +6,30 @@ import Footer from '../components/app/Footer.astro';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="ru" class="scroll-smooth">
   <head>
     <Font cssVariable="--font-base" preload />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="generator" content={Astro.generator} />
     <title>Astro Basics</title>
   </head>
   <body>
-    <Header />
-    <main>
-      <slot />
-    </main>
-    <Footer />
+      <div class="flex flex-col min-h-screen">
+        <Header />
+        <main class="flex-auto">
+          <slot />
+        </main>
+        <Footer />
+      </div>
   </body>
 </html>
 
-<style>
+<style is:global>
   body {
     font-family: var(--font-base);
+  }
+  section {
+    scroll-margin-top: 5rem;
   }
 </style>

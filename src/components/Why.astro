@@ -30,13 +30,13 @@ const items: WhyItem[] = [
 ];
 ---
 
-<section class="py-20">
+<section class="py-10 lg:py-20">
   <div class="container">
-    <h2 class="text-center text-4xl md:text-5xl font-semibold mb-12">Кому стоит пройти тест?</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <h2 class="md:text-center text-3xl md:text-4xl lg:text-5xl font-semibold mb-6 md:mb-12">Кому стоит пройти тест?</h2>
+    <div class="grid md:grid-cols-3 gap-5 lg:gap-8">
       {
         items.map((item) => (
-          <Card class="gap-12">
+          <Card class="gap-4 md:gap-12">
             <CardHeader>
               <item.icon />
             </CardHeader>

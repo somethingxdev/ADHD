@@ -1,0 +1,117 @@
+---
+import { CircleCheck, TriangleAlert } from '@lucide/astro';
+---
+
+<section id="course-promo-section">
+ 
+    <div class="bg-[#FFE8A0] rounded-2xl p-6 md:p-8 md:max-w-2xl mx-auto">
+      <h2 class="text-2xl md:text-3xl font-semibold text-[#1a1a1a] mb-8">
+        Курс поможет вам научиться жить<br />с СДВГ продуктивно
+      </h2>
+
+      <div class="mb-8">
+        <p class="font-medium mb-4">Включено:</p>
+        <ul class="space-y-3 text-sm md:text-base">
+          <li class="flex items-center gap-3">
+            <CircleCheck class="size-5 text-primary shrink-0" />
+            <span>7 видео-уроков по управлению СДВГ</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <CircleCheck class="size-5 text-primary shrink-0" />
+            <span>Практические задания и чек-листы</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <CircleCheck class="size-5 text-primary shrink-0" />
+            <span>Доступ к закрытому сообществу</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <CircleCheck class="size-5 text-primary shrink-0" />
+            <span>Поддержка куратора</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="bg-white rounded-xl p-6 text-center mb-6">
+        <p class="text-lg font-semibold text-[#1a1a1a] mb-4">
+          Новая цена: <span class="text-2xl">29 ₽</span>
+          <span class="text-gray-400 line-through ml-2 font-normal">990 ₽</span>
+        </p>
+
+        <div class="flex items-center justify-center gap-2 text-[#1a1a1a]" id="countdown">
+          <div class="flex">
+            <span class="bg-gray-50 border border-gray-200 rounded-l-md px-3 py-2 text-lg font-mono" id="hours-tens">2</span>
+            <span class="bg-gray-50 border border-gray-200 border-l-0 rounded-r-md px-3 py-2 text-lg font-mono" id="hours-ones">3</span>
+          </div>
+          <span class="text-xl">•</span>
+          <div class="flex">
+            <span class="bg-gray-50 border border-gray-200 rounded-l-md px-3 py-2 text-lg font-mono" id="minutes-tens">5</span>
+            <span class="bg-gray-50 border border-gray-200 border-l-0 rounded-r-md px-3 py-2 text-lg font-mono" id="minutes-ones">9</span>
+          </div>
+          <span class="text-xl">•</span>
+          <div class="flex">
+            <span class="bg-gray-50 border border-gray-200 rounded-l-md px-3 py-2 text-lg font-mono" id="seconds-tens">1</span>
+            <span class="bg-gray-50 border border-gray-200 border-l-0 rounded-r-md px-3 py-2 text-lg font-mono" id="seconds-ones">0</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="w-full bg-[#2FA39D] hover:bg-[#268e89] text-white font-medium py-4 rounded-lg transition-colors mb-6">
+        Получить доступ за 29 ₽
+      </button>
+
+      <div class="flex flex-col justify-center items-center gap-2 text-muted-foreground text-sm text-center">
+        <p class="flex items-center gap-2"><TriangleAlert class="size-4 shrink-0" />Это не медицинский диагноз.</p>
+        <p>Для точной диагностики обратитесь к врачу.</p>
+      </div>
+    </div>
+
+</section>
+
+<script>
+  function getTimeRemaining() {
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(0, 0, 0, 0);
+
+    let diff = tomorrow.getTime() - now.getTime();
+
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    diff -= hours * 1000 * 60 * 60;
+
+    const minutes = Math.floor(diff / (1000 * 60));
+    diff -= minutes * 1000 * 60;
+
+    const seconds = Math.floor(diff / 1000);
+
+    return { hours, minutes, seconds };
+  }
+
+  function updateCountdown() {
+    const { hours, minutes, seconds } = getTimeRemaining();
+
+    const hTens = Math.floor(hours / 10);
+    const hOnes = hours % 10;
+    const mTens = Math.floor(minutes / 10);
+    const mOnes = minutes % 10;
+    const sTens = Math.floor(seconds / 10);
+    const sOnes = seconds % 10;
+
+    const hTensEl = document.getElementById('hours-tens');
+    const hOnesEl = document.getElementById('hours-ones');
+    const mTensEl = document.getElementById('minutes-tens');
+    const mOnesEl = document.getElementById('minutes-ones');
+    const sTensEl = document.getElementById('seconds-tens');
+    const sOnesEl = document.getElementById('seconds-ones');
+
+    if (hTensEl) hTensEl.textContent = String(hTens);
+    if (hOnesEl) hOnesEl.textContent = String(hOnes);
+    if (mTensEl) mTensEl.textContent = String(mTens);
+    if (mOnesEl) mOnesEl.textContent = String(mOnes);
+    if (sTensEl) sTensEl.textContent = String(sTens);
+    if (sOnesEl) sOnesEl.textContent = String(sOnes);
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>

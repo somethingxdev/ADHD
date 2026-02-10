@@ -3,6 +3,10 @@ import Tabs from './starwind/tabs/Tabs.astro';
 import TabsList from './starwind/tabs/TabsList.astro';
 import TabsTrigger from './starwind/tabs/TabsTrigger.astro';
 import TabsContent from './starwind/tabs/TabsContent.astro';
+import Accordion from './starwind/accordion/Accordion.astro';
+import AccordionItem from './starwind/accordion/AccordionItem.astro';
+import AccordionTrigger from './starwind/accordion/AccordionTrigger.astro';
+import AccordionContent from './starwind/accordion/AccordionContent.astro';
 import { Star } from '@lucide/astro';
 
 interface Lesson {
@@ -132,13 +136,14 @@ const lessons: Lesson[] = [
 ];
 ---
 
-<section class="py-20">
+<section class="py-10 lg:py-20">
   <div class="container">
-    <h2 class="text-4xl md:text-5xl font-semibold mb-12">
-      Программа курса<br />по управлению СДВГ — 2 месяца
+    <h2 class="text-3xl md:text-4xl lg:text-5xl font-semibold mb-6 lg:mb-12">
+      Программа курса<br class="hidden md:block" /> по управлению СДВГ — 2 месяца
     </h2>
 
-    <Tabs defaultValue="1" class="grid grid-cols-2 gap-8">
+    <!-- Desktop: Tabs -->
+    <Tabs defaultValue="1" class="hidden md:grid grid-cols-2 gap-8">
       <TabsList class="flex flex-col items-stretch gap-2 bg-transparent p-0 h-auto w-full">
         {
           lessons.map((lesson) => (
@@ -166,5 +171,33 @@ const lessons: Lesson[] = [
         ))
       }
     </Tabs>
+
+    <!-- Mobile: Accordion -->
+    <Accordion type="single" defaultValue="1" class="md:hidden">
+      {
+        lessons.map((lesson) => (
+          <AccordionItem value={lesson.id}>
+            <AccordionTrigger>
+              <span class="flex items-center">
+            
+                <span class="font-medium">{lesson.title}</span>
+                {lesson.hasStar && <Star class="ml-2 size-4 text-yellow-500 fill-yellow-500" />}
+              </span>
+            </AccordionTrigger>
+            <AccordionContent>
+              <ul class="space-y-2">
+                {lesson.items.map((item) => (
+                  <li class="flex items-start gap-3 text-muted-foreground">
+                    <span class="text-muted-foreground mt-1">•</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </AccordionContent>
+          </AccordionItem>
+        ))
+      }
+    </Accordion>
   </div>
 </section>
+

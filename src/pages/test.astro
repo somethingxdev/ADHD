@@ -6,8 +6,8 @@ import { Progress } from '@/components/starwind/progress';
 import { Card, CardContent } from '@/components/starwind/card';
 import Spinner from '@/components/starwind/spinner/Spinner.astro';
 import Button from '@/components/starwind/button';
+import CoursePromo from '@/components/CoursePromo.astro';
 import { Image } from 'astro:assets';
-import heroImage from '@/assets/hero.png';
 import { ArrowLeft, ArrowRight } from '@lucide/astro';
 
 const questions = [
@@ -18,16 +18,40 @@ const questions = [
   },
   {
     id: 2,
-    text: 'Как часто вы откладываете дела до последнего момента?',
+    text: 'Как часто вы откладываете важные дела на потом?',
     options: ['Никогда', 'Редко', 'Иногда', 'Часто', 'Очень часто'],
-  }
+  },
+  {
+    id: 3,
+    text: 'Как часто вам сложно довести начатое дело до конца?',
+    options: ['Никогда', 'Редко', 'Иногда', 'Часто', 'Очень часто'],
+  },
+  {
+    id: 4,
+    text: 'Как часто вы чувствуете усталость или выгорание без явной причины?',
+    options: ['Никогда', 'Редко', 'Иногда', 'Часто', 'Очень часто'],
+  },
+  {
+    id: 5,
+    text: 'Как часто вы отвлекаетесь на телефон или посторонние мысли во время работы?',
+    options: ['Никогда', 'Редко', 'Иногда', 'Часто', 'Очень часто'],
+  },
+  {
+    id: 6,
+    text: 'Как часто вам трудно начать новую задачу, даже если она важная?',
+    options: ['Никогда', 'Редко', 'Иногда', 'Часто', 'Очень часто'],
+  },
+  {
+    id: 7,
+    text: 'Как часто вы испытываете ощущение, что дел слишком много и вы не справляетесь?',
+    options: ['Никогда', 'Редко', 'Иногда', 'Часто', 'Очень часто'],
+  },
 ];
 ---
 
 <Layout>
   <section class="py-6">
     <div class="container">
-      <!-- Breadcrumbs -->
       <Breadcrumb class="mb-8">
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -50,7 +74,7 @@ const questions = [
                 <span class="text-sm text-muted-foreground whitespace-nowrap" id="question-counter">
                   Вопрос 1 из {questions.length}
                 </span>
-                <Progress value={Math.round(100 / questions.length)} max={100} variant="primary" class="h-4 max-w-full" id="quiz-progress" />
+                <Progress value={0} max={100} variant="primary" class="h-4 max-w-full" id="quiz-progress" />
               </div>
 
               <!-- Questions container -->
@@ -74,14 +98,12 @@ const questions = [
 
               <!-- Navigation -->
               <div class="flex items-center justify-between mt-6 pt-6 border-t border-border">
-                <button
-                  class="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-                  id="btn-prev"
-                  disabled>
+                <Button id="btn-prev" variant="outline" disabled>
                   <ArrowLeft class="size-4" />
-                  Назад
-                </button>
-                <Button id="btn-next" class="disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                  Назад</Button
+                >
+
+                <Button id="btn-next" disabled>
                   Далее
                   <ArrowRight class="size-4" />
                 </Button>
@@ -90,12 +112,12 @@ const questions = [
           </Card>
 
           <!-- Right: Course program stub -->
-          <div class="rounded-2xl bg-[#fceabb] p-6 text-center" id="course-sidebar">
-            <h3 class="text-lg font-bold mb-4 leading-snug">
+          <div class="rounded-2xl bg-[#FFE699] p-6" id="course-sidebar">
+            <h3 class="text-2xl font-bold mb-4 leading-snug">
               Программа курса<br />по управлению СДВГ
             </h3>
-            <Image src={heroImage} alt="Brain character" class="mx-auto mb-6 w-48 h-auto" />
-            <Button variant="default" class="w-full"> Приобрести программу </Button>
+            <Image src={import('@/assets/buy-course.png')} alt="Brain character" class="mx-auto" />
+            <Button variant="default" class="w-full bg-black"> Приобрести программу </Button>
           </div>
         </div>
       </div>
@@ -110,58 +132,60 @@ const questions = [
       </div>
 
       <!-- Results section (shown after loader) -->
-      <div id="results-section" class="hidden">
-        <!-- Result hero card (colored based on result) -->
-        <div id="result-hero" class="rounded-2xl p-8 md:p-12 mb-12 relative overflow-hidden min-h-[280px]">
-          <div class="relative z-10 max-w-md">
-            <h1 id="result-title" class="text-3xl md:text-4xl font-bold mb-4"></h1>
-            <p id="result-description" class="text-sm md:text-base mb-6 opacity-80"></p>
-            <div class="inline-flex items-center gap-2 rounded-lg border border-black/10 bg-white/20 px-4 py-2 text-sm font-medium">
-              <span id="result-score"></span>
+      <div id="result-low" class="hidden rounded-2xl p-6 md:p-8 mb-12 overflow-hidden bg-[#3edbd3]">
+        <div class="flex justify-between items-center">
+          <div class="relative z-10 max-w-lg">
+            <h1 class="text-3xl md:text-4xl font-bold mb-4">
+              Низкая<br />вероятность СДВГ
+            </h1>
+
+            <p class="text-sm md:text-base mb-6 opacity-80">У вас мало признаков СДВГ. Однако, если вы испытываете трудности с концентрацией или организацией, курс всё равно может быть полезен.</p>
+
+            <div class="inline-flex items-center gap-2 rounded-lg border border-black/10 bg-white px-4 py-2 text-sm font-medium">
+              <span class="result-score"></span>
             </div>
           </div>
-          <!-- TODO: добавить картинку персонажа справа -->
+
+          <Image src={import('@/assets/low-results.png')} alt="Low result" class="hidden md:block -mb-10 z-0" />
         </div>
+      </div>
 
-        <!-- Course promo block -->
-        <div class="flex flex-col items-center py-12">
-          <div class="max-w-xl w-full text-center">
-            <!-- TODO: добавить картинку мозга слева -->
-            <h2 class="text-2xl md:text-3xl font-bold mb-4">Курс поможет вам научиться жить с СДВГ продуктивно</h2>
-            <div class="text-left space-y-3 mb-8">
-              <p class="font-semibold">Включено:</p>
-              <ul class="space-y-2">
-                <li class="flex items-center gap-2">
-                  <span class="size-2 rounded-full border-2 border-primary shrink-0"></span>
-                  7 видео-уроков по управлению СДВГ
-                </li>
-                <li class="flex items-center gap-2">
-                  <span class="size-2 rounded-full border-2 border-primary shrink-0"></span>
-                  Практические задания и чек-листы
-                </li>
-                <li class="flex items-center gap-2">
-                  <span class="size-2 rounded-full border-2 border-primary shrink-0"></span>
-                  Доступ к закрытому сообществу
-                </li>
-                <li class="flex items-center gap-2">
-                  <span class="size-2 rounded-full border-2 border-primary shrink-0"></span>
-                  Поддержка куратора
-                </li>
-              </ul>
+      <!-- Medium result card -->
+      <div id="result-medium" class="hidden rounded-2xl p-6 md:p-8 mb-12 overflow-hidden bg-[#93b5f5]">
+        <div class="flex justify-between items-center">
+          <div class="relative z-10 max-w-lg">
+            <h1 class="text-3xl md:text-4xl font-bold mb-4">
+              Средняя<br />вероятность СДВГ
+            </h1>
+
+            <p class="text-sm md:text-base mb-6 opacity-80">У вас есть некоторые признаки СДВГ. Рекомендуем изучить наш курс и при необходимости обратиться к специалисту.</p>
+
+            <div class="inline-flex items-center gap-2 rounded-lg border border-black/10 bg-white px-4 py-2 text-sm font-medium">
+              <span class="result-score"></span>
             </div>
-
-            <div class="rounded-xl border border-border p-4 mb-4">
-              <p class="font-bold text-lg">Новая цена: 29 ₽ <span class="text-muted-foreground line-through text-sm font-normal">990 ₽</span></p>
-              <!-- TODO: добавить таймер обратного отсчёта -->
-            </div>
-
-            <Button variant="default" class="w-full text-base h-12"> Получить доступ за 29 ₽ </Button>
-
-            <p class="mt-6 text-xs text-muted-foreground">
-              ⚠ Это не медицинский диагноз.<br />Для точной диагностики обратитесь к врачу.
-            </p>
           </div>
+
+          <Image src={import('@/assets/medium-results.png')} alt="Medium result" class="hidden md:block -mb-10 z-0" />
         </div>
+      </div>
+
+      <!-- High result card -->
+      <div id="result-high" class="hidden rounded-2xl p-6 md:p-8 mb-12 overflow-hidden bg-[#f5a08c]">
+        <div class="flex justify-between items-center">
+          <div class="relative z-10 max-w-lg">
+            <h1 class="text-3xl md:text-4xl font-bold mb-4">Высокая<br />вероятность СДВГ</h1>
+            <p class="text-sm md:text-base mb-6 opacity-80">У вас много признаков СДВГ. Рекомендуем пройти наш курс и обратиться к врачу для официальной диагностики.</p>
+            <div class="inline-flex items-center gap-2 rounded-lg border border-black/10 bg-white px-4 py-2 text-sm font-medium">
+              <span class="result-score"></span>
+            </div>
+          </div>
+          <Image src={import('@/assets/hight-results.png')} alt="High result" class="hidden md:block -mb-10 z-0" />
+        </div>
+      </div>
+
+      <!-- Course promo block (hidden initially, shown after results) -->
+      <div id="course-promo-wrapper" class="hidden">
+        <CoursePromo />
       </div>
     </div>
   </section>
@@ -169,6 +193,11 @@ const questions = [
 
 <script>
   import { animate } from 'motion/mini';
+
+  // Reset all radio buttons on page load
+  document.querySelectorAll<HTMLInputElement>('input[type="radio"]').forEach((radio) => {
+    radio.checked = false;
+  });
 
   const slides = document.querySelectorAll<HTMLElement>('.question-slide');
   const totalQuestions = slides.length;
@@ -184,7 +213,7 @@ const questions = [
   const resultsSection = document.getElementById('results-section')!;
 
   function updateProgress() {
-    const percent = Math.round(((currentQuestion + 1) / totalQuestions) * 100);
+    const percent = Math.round((currentQuestion / totalQuestions) * 100);
     progressBar.setAttribute('data-value', String(percent));
   }
 
@@ -287,7 +316,7 @@ const questions = [
     showResults();
   }
 
-  function showResults() {
+  async function showResults() {
     let totalScore = 0;
     for (const key in answers) {
       totalScore += parseInt(answers[key]);
@@ -298,35 +327,38 @@ const questions = [
     const optionsPerQuestion = firstGroup ? firstGroup.length : 5;
     const maxScore = totalQuestions * (optionsPerQuestion - 1);
 
-    const resultHero = document.getElementById('result-hero')!;
-    const resultTitle = document.getElementById('result-title')!;
-    const resultDescription = document.getElementById('result-description')!;
-    const resultScore = document.getElementById('result-score')!;
-
     const percentage = maxScore > 0 ? totalScore / maxScore : 0;
 
-    // 3 levels based on screenshots
+    const resultLow = document.getElementById('result-low')!;
+    const resultMedium = document.getElementById('result-medium')!;
+    const resultHigh = document.getElementById('result-high')!;
+
+    // Hide all result cards first
+    resultLow.classList.add('hidden');
+    resultMedium.classList.add('hidden');
+    resultHigh.classList.add('hidden');
+
+    // Show the appropriate card
     if (percentage <= 0.33) {
-      // Низкая
-      resultHero.style.backgroundColor = '#3edbd3';
-      resultTitle.innerHTML = 'Низкая<br>вероятность СДВГ';
-      resultDescription.textContent = 'У вас мало признаков СДВГ. Однако, если вы испытываете трудности с концентрацией или организацией, курс всё равно может быть полезен.';
+      resultLow.classList.remove('hidden');
     } else if (percentage <= 0.66) {
-      // Средняя
-      resultHero.style.backgroundColor = '#93b5f5';
-      resultTitle.innerHTML = 'Средняя<br>вероятность СДВГ';
-      resultDescription.textContent = 'У вас есть некоторые признаки СДВГ. Рекомендуем изучить наш курс и при необходимости обратиться к специалисту.';
+      resultMedium.classList.remove('hidden');
     } else {
-      // Высокая
-      resultHero.style.backgroundColor = '#f5a08c';
-      resultTitle.innerHTML = 'Высокая<br>вероятность СДВГ';
-      resultDescription.textContent = 'У вас много признаков СДВГ. Рекомендуем пройти наш курс и обратиться к врачу для официальной диагностики.';
+      resultHigh.classList.remove('hidden');
     }
 
-    resultScore.textContent = `Ваш результат: ${totalScore} из ${maxScore} баллов`;
+    // Set score text on all cards (only visible one matters)
+    const scoreText = `Ваш результат: ${totalScore} из ${maxScore} баллов`;
+    document.querySelectorAll('.result-score').forEach((el) => {
+      el.textContent = scoreText;
+    });
 
-    resultsSection.style.display = '';
-    resultsSection.classList.remove('hidden');
+    // Show and animate course promo
+    const coursePromoWrapper = document.getElementById('course-promo-wrapper')!;
+    coursePromoWrapper.classList.remove('hidden');
+    await animate(coursePromoWrapper, { opacity: [0, 1], y: [20, 0] }, { duration: 0.5, ease: 'easeOut' }).finished;
+
+   
     animate(resultsSection, { opacity: [0, 1] }, { duration: 0.5, ease: 'easeOut' });
   }
 
