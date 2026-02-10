@@ -1,0 +1,33 @@
+---
+import { Image } from 'astro:assets';
+import logoImage from '@/assets/logo.svg';
+
+import VisaIcon from '@/icons/visa.svg';
+import MastercardIcon from '@/icons/mastercard.svg';
+import MirIcon from '@/icons/mir.svg';
+---
+
+<footer class="py-12">
+  <div class="container">
+    <div class="flex items-center justify-between mb-8">
+      <div class="flex items-center gap-8">
+        <Image src={logoImage} alt="Logo" class="h-8 w-auto" />
+        <a href="mailto:business@example.io" class="text-muted-foreground hover:text-foreground transition-colors"> business@example.io </a>
+        <a href="mailto:support@example.io" class="text-muted-foreground hover:text-foreground transition-colors"> support@example.io </a>
+      </div>
+      <div class="flex items-center gap-6">
+        <VisaIcon />
+        <MastercardIcon />
+        <MirIcon />
+      </div>
+    </div>
+
+    <div class="border-t border-border pt-8 flex items-center justify-between text-sm text-muted-foreground">
+      <p>Copyright 2048 © shadcdesign.com</p>
+      <div class="flex items-center gap-6">
+        <a href="#" class="hover:text-foreground transition-colors">Политика конфиденциальности</a>
+        <a href="#" class="hover:text-foreground transition-colors">Условия использования</a>
+      </div>
+    </div>
+  </div>
+</footer>

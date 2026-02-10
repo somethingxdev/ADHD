@@ -1,0 +1,52 @@
+---
+import type { SvgComponent } from 'astro/types';
+import ScanEyeIcon from '@/icons/scan-eye.svg';
+import SchoolIcon from '@/icons/school.svg';
+import BusinessIcon from '@/icons/business.svg';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from './starwind/card';
+
+interface WhyItem {
+  icon: SvgComponent;
+  title: string;
+  description: string;
+}
+
+const items: WhyItem[] = [
+  {
+    icon: ScanEyeIcon,
+    title: 'Тем, кто подозревает СДВГ',
+    description: 'Чувствуете, что с вами "что-то не так"? Тест поможет разобраться',
+  },
+  {
+    icon: SchoolIcon,
+    title: 'Студентам и школьникам',
+    description: 'Проблемы с учебой могут быть связаны с СДВГ, а не с ленью',
+  },
+  {
+    icon: BusinessIcon,
+    title: 'Взрослым на работе',
+    description: 'Не справляетесь с задачами? СДВГ может быть причиной',
+  },
+];
+---
+
+<section class="py-20">
+  <div class="container">
+    <h2 class="text-center text-4xl md:text-5xl font-semibold mb-12">Кому стоит пройти тест?</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {
+        items.map((item) => (
+          <Card class="gap-12">
+            <CardHeader>
+              <item.icon />
+            </CardHeader>
+            <CardContent>
+              <CardTitle class="mb-3">{item.title}</CardTitle>
+              <CardDescription>{item.description}</CardDescription>
+            </CardContent>
+          </Card>
+        ))
+      }
+    </div>
+  </div>
+</section>

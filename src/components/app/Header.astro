@@ -1,0 +1,37 @@
+---
+import { Image } from "astro:assets";
+import Button from "../starwind/button";
+---
+
+<header id="header" class="sticky top-0 left-0 py-4.5 bg-white transition-shadow duration-300">
+  <div class="container">
+    <div class="flex justify-between items-center gap-3">
+      <a href="/">
+        <Image src={import("@/assets/logo.svg")} alt="Logo" />
+      </a>
+      <div class="flex items-center gap-3">
+        <nav>
+          <ul class="flex items-center gap-5">
+            <li><a href="#" class="hover:text-primary font-medium">Программа</a></li>
+            <li><a href="#" class="hover:text-primary font-medium">Тарифы</a></li>
+          </ul>
+        </nav>
+        <Button>Личный кабинет</Button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('header');
+  
+  window.addEventListener('scroll', () => {
+    if (header) {
+      if (window.scrollY > 10) {
+        header.classList.add('shadow-lg');
+      } else {
+        header.classList.remove('shadow-lg');
+      }
+    }
+  });
+</script>

@@ -1,0 +1,28 @@
+---
+import { Image } from 'astro:assets';
+import Button from './starwind/button';
+import { ArrowRight } from '@lucide/astro';
+import testStartImage from '@/assets/test-start.png';
+---
+
+<section class="py-20">
+  <div class="container">
+    <div class="bg-[#FFE699] rounded-xl shadow-lg p-16">
+      <div class="flex justify-between gap-12">
+        <div class="flex-1 flex flex-col justify-between h-auto">
+          <div>
+            <p class="text-[#2775C9]/80 text-lg font-medium mb-5">Уже 12,453 человека прошли тест</p>
+            <h2 class="text-4xl md:text-5xl font-semibold mb-6 leading-tight">Узнайте за 2 минуты, есть ли у вас СДВГ?</h2>
+          </div>
+          <div>
+            <p class="mb-6 text-foreground/80">Тест носит ознакомительный характер и не заменяет врача. Если чувствуешь, что это про тебя, лучше обсуди это со специалистом.</p>
+            <Button variant="secondary">Начать тест <ArrowRight /></Button>
+          </div>
+        </div>
+        <div class="flex-1">
+          <Image src={testStartImage} alt="Test Start" class="w-full" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

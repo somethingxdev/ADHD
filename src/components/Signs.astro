@@ -1,0 +1,51 @@
+---
+import Card from './starwind/card/Card.astro';
+import { CardHeader, CardTitle, CardDescription, CardContent } from './starwind/card/index.ts';
+
+const signs = [
+  {
+    title: 'Проблемы с концентрацией',
+    description: 'Не можете сосредоточиться на одной задаче, постоянно отвлекаетесь',
+  },
+  {
+    title: 'Забывчивость',
+    description: 'Теряете вещи, забываете встречи, не помните что хотели сказать',
+  },
+  {
+    title: 'Импульсивность',
+    description: 'Принимает решения спонтанно, перебивает собеседников',
+  },
+  {
+    title: 'Прокрастинация',
+    description: 'Откладываете важные дела на последний момент',
+  },
+  {
+    title: 'Эмоциональные качели',
+    description: 'Резкие перепады настроения, быстро раздражаетесь',
+  },
+  {
+    title: 'Хаос в голове',
+    description: 'Тысяча мыслей одновременно, не можете расставить приоритеты',
+  },
+];
+---
+
+<section class="py-20">
+  <div class="container">
+    <h2 class="text-3xl md:text-5xl mb-12 font-semibold">Знакомо? Это признаки СДВГ</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+      {
+        signs.map((sign) => (
+          <Card>
+            <CardHeader>
+              <CardTitle>{sign.title}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <CardDescription>{sign.description}</CardDescription>
+            </CardContent>
+          </Card>
+        ))
+      }
+    </div>
+  </div>
+</section>
