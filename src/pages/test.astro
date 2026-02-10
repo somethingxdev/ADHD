@@ -82,10 +82,10 @@ const questions = [
                 {
                   questions.map((q, idx) => (
                     <div class:list={['question-slide', idx === 0 ? '' : 'hidden']} data-question-index={idx}>
-                      <h2 class="text-2xl font-semibold mb-8">{q.text}</h2>
+                      <h2 class="text-xl md:text-2xl font-semibold mb-5 md:mb-8">{q.text}</h2>
                       <RadioGroup orientation="vertical" id={`radio-group-${idx}`}>
                         {q.options.map((option, optIdx) => (
-                          <label class:list={['flex items-center gap-3 px-4 py-5 bg-white cursor-pointer border rounded-xl transition-colors hover:bg-muted/50', 'quiz-option']} data-question={idx}>
+                          <label class:list={['flex items-center gap-3 p-4 bg-white cursor-pointer border rounded-xl transition-colors hover:bg-muted/50', 'quiz-option']} data-question={idx}>
                             <RadioGroupItem value={String(optIdx)} name={`question-${idx}`} variant="primary" />
                             <span class="text-base">{option}</span>
                           </label>
