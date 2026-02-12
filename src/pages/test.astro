@@ -16,35 +16,59 @@ const questions = [
     text: 'Как часто вы испытываете трудности с концентрацией на задачах?',
     options: ['Никогда', 'Редко', 'Иногда', 'Часто', 'Очень часто'],
   },
+  // {
+  //   id: 2,
+  //   text: 'Как часто вы откладываете важные дела на потом?',
+  //   options: ['Никогда', 'Редко', 'Иногда', 'Часто', 'Очень часто'],
+  // },
+  // {
+  //   id: 3,
+  //   text: 'Как часто вам сложно довести начатое дело до конца?',
+  //   options: ['Никогда', 'Редко', 'Иногда', 'Часто', 'Очень часто'],
+  // },
+  // {
+  //   id: 4,
+  //   text: 'Как часто вы чувствуете усталость или выгорание без явной причины?',
+  //   options: ['Никогда', 'Редко', 'Иногда', 'Часто', 'Очень часто'],
+  // },
+  // {
+  //   id: 5,
+  //   text: 'Как часто вы отвлекаетесь на телефон или посторонние мысли во время работы?',
+  //   options: ['Никогда', 'Редко', 'Иногда', 'Часто', 'Очень часто'],
+  // },
+  // {
+  //   id: 6,
+  //   text: 'Как часто вам трудно начать новую задачу, даже если она важная?',
+  //   options: ['Никогда', 'Редко', 'Иногда', 'Часто', 'Очень часто'],
+  // },
+  // {
+  //   id: 7,
+  //   text: 'Как часто вы испытываете ощущение, что дел слишком много и вы не справляетесь?',
+  //   options: ['Никогда', 'Редко', 'Иногда', 'Часто', 'Очень часто'],
+  // },
+];
+
+const results = [
   {
-    id: 2,
-    text: 'Как часто вы откладываете важные дела на потом?',
-    options: ['Никогда', 'Редко', 'Иногда', 'Часто', 'Очень часто'],
+    id: 'low',
+    title: 'Низкая<br />вероятность СДВГ',
+    description: 'У вас мало признаков СДВГ. Однако, если вы испытываете трудности с концентрацией или организацией, курс всё равно может быть полезен.',
+    bgColor: 'bg-[#3edbd3]',
+    image: import('@/assets/low-results.png'),
   },
   {
-    id: 3,
-    text: 'Как часто вам сложно довести начатое дело до конца?',
-    options: ['Никогда', 'Редко', 'Иногда', 'Часто', 'Очень часто'],
+    id: 'medium',
+    title: 'Средняя<br />вероятность СДВГ',
+    description: 'У вас есть некоторые признаки СДВГ. Рекомендуем изучить наш курс и при необходимости обратиться к специалисту.',
+    bgColor: 'bg-[#93b5f5]',
+    image: import('@/assets/medium-results.png'),
   },
   {
-    id: 4,
-    text: 'Как часто вы чувствуете усталость или выгорание без явной причины?',
-    options: ['Никогда', 'Редко', 'Иногда', 'Часто', 'Очень часто'],
-  },
-  {
-    id: 5,
-    text: 'Как часто вы отвлекаетесь на телефон или посторонние мысли во время работы?',
-    options: ['Никогда', 'Редко', 'Иногда', 'Часто', 'Очень часто'],
-  },
-  {
-    id: 6,
-    text: 'Как часто вам трудно начать новую задачу, даже если она важная?',
-    options: ['Никогда', 'Редко', 'Иногда', 'Часто', 'Очень часто'],
-  },
-  {
-    id: 7,
-    text: 'Как часто вы испытываете ощущение, что дел слишком много и вы не справляетесь?',
-    options: ['Никогда', 'Редко', 'Иногда', 'Часто', 'Очень часто'],
+    id: 'high',
+    title: 'Высокая<br />вероятность СДВГ',
+    description: 'У вас много признаков СДВГ. Рекомендуем пройти наш курс и обратиться к врачу для официальной диагностики.',
+    bgColor: 'bg-[#f5a08c]',
+    image: import('@/assets/hight-results.png'),
   },
 ];
 ---
@@ -68,48 +92,51 @@ const questions = [
       <div id="quiz-section">
         <div class="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8 items-start">
           <!-- Left: Quiz card -->
-          <Card id="quiz-card">
-            <CardContent>
-              <div class="flex items-center gap-4 mb-6">
-                <span class="text-sm text-muted-foreground whitespace-nowrap" id="question-counter">
-                  Вопрос 1 из {questions.length}
-                </span>
-                <Progress value={0} max={100} variant="primary" class="h-4 max-w-full" id="quiz-progress" />
-              </div>
 
-              <!-- Questions container -->
-              <div id="questions-container">
-                {
-                  questions.map((q, idx) => (
-                    <div class:list={['question-slide', idx === 0 ? '' : 'hidden']} data-question-index={idx}>
-                      <h2 class="text-xl md:text-2xl font-semibold mb-5 md:mb-8">{q.text}</h2>
-                      <RadioGroup orientation="vertical" id={`radio-group-${idx}`}>
-                        {q.options.map((option, optIdx) => (
-                          <label class:list={['flex items-center gap-3 p-4 bg-white cursor-pointer border rounded-xl transition-colors hover:bg-muted/50', 'quiz-option']} data-question={idx}>
-                            <RadioGroupItem value={String(optIdx)} name={`question-${idx}`} variant="primary" />
-                            <span class="text-base">{option}</span>
-                          </label>
-                        ))}
-                      </RadioGroup>
-                    </div>
-                  ))
-                }
-              </div>
+          <div>
+            <Card id="quiz-card" class="md:p-0">
+              <CardContent class="md:px-8 md:py-8">
+                <div class="flex items-center gap-4 mb-6">
+                  <span class="text-sm text-muted-foreground whitespace-nowrap" id="question-counter">
+                    Вопрос 1 из {questions.length}
+                  </span>
+                  <Progress value={0} max={100} variant="primary" class="h-4 max-w-full" id="quiz-progress" />
+                </div>
 
-              <!-- Navigation -->
-              <div class="flex items-center justify-between mt-6 pt-6 border-t border-border">
-                <Button id="btn-prev" variant="outline" disabled>
-                  <ArrowLeft class="size-4" />
-                  Назад</Button
-                >
+                <!-- Questions container -->
+                <div id="questions-container">
+                  {
+                    questions.map((q, idx) => (
+                      <div class:list={['question-slide', idx === 0 ? '' : 'hidden']} data-question-index={idx}>
+                        <h2 class="text-xl md:text-2xl font-semibold mb-5 md:mb-8">{q.text}</h2>
+                        <RadioGroup orientation="vertical" id={`radio-group-${idx}`}>
+                          {q.options.map((option, optIdx) => (
+                            <label class:list={['flex items-center gap-3 p-4 bg-white cursor-pointer border rounded-lg transition-colors hover:bg-muted/50', 'quiz-option']} data-question={idx}>
+                              <RadioGroupItem value={String(optIdx)} name={`question-${idx}`} variant="primary" />
+                              <span class="text-base">{option}</span>
+                            </label>
+                          ))}
+                        </RadioGroup>
+                      </div>
+                    ))
+                  }
+                </div>
+              </CardContent>
+            </Card>
 
-                <Button id="btn-next" disabled>
-                  Далее
-                  <ArrowRight class="size-4" />
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+            <!-- Navigation buttons outside card -->
+            <div class="flex items-center justify-between mt-6">
+              <Button id="btn-prev" variant="outline" disabled>
+                <ArrowLeft />
+                Назад
+              </Button>
+
+              <Button id="btn-next" disabled>
+                Далее
+                <ArrowRight />
+              </Button>
+            </div>
+          </div>
 
           <!-- Right: Course program stub -->
           <div class="rounded-2xl bg-[#FFE699] p-6" id="course-sidebar">
@@ -132,58 +159,23 @@ const questions = [
       </div>
 
       <!-- Results section (shown after loader) -->
-      <div id="result-low" class="hidden rounded-2xl p-6 md:p-8 mb-12 overflow-hidden bg-[#3edbd3]">
-        <div class="flex justify-between items-center">
-          <div class="relative z-10 max-w-lg">
-            <h1 class="text-3xl md:text-4xl font-bold mb-4">
-              Низкая<br />вероятность СДВГ
-            </h1>
-
-            <p class="text-sm md:text-base mb-6 opacity-80">У вас мало признаков СДВГ. Однако, если вы испытываете трудности с концентрацией или организацией, курс всё равно может быть полезен.</p>
-
-            <div class="inline-flex items-center gap-2 rounded-lg border border-black/10 bg-white px-4 py-2 text-sm font-medium">
-              <span class="result-score"></span>
+      {
+        results.map((result) => (
+          <div id={`result-${result.id}`} class:list={['hidden rounded-2xl p-6 md:p-8 mb-12 overflow-hidden', result.bgColor]}>
+            <div class="flex justify-between items-center">
+              <div class="relative z-10 md:text-center max-w-[530px]">
+                <h1 class="text-3xl md:text-4xl lg:text-5xl font-semibold mb-4" set:html={result.title} />
+                <p class="text-sm md:text-base mb-6 opacity-80">{result.description}</p>
+                <div class="inline-flex items-center gap-2 rounded-lg border border-black/10 bg-white px-4 py-2 font-medium">
+                  <span class="result-score"></span>
+                </div>
+              </div>
+              <Image src={result.image} alt={`${result.id} result`} quality={100} class="hidden md:block -mb-10 z-0" />
             </div>
           </div>
+        ))
+      }
 
-          <Image src={import('@/assets/low-results.png')} alt="Low result" class="hidden md:block -mb-10 z-0" />
-        </div>
-      </div>
-
-      <!-- Medium result card -->
-      <div id="result-medium" class="hidden rounded-2xl p-6 md:p-8 mb-12 overflow-hidden bg-[#93b5f5]">
-        <div class="flex justify-between items-center">
-          <div class="relative z-10 max-w-lg">
-            <h1 class="text-3xl md:text-4xl font-bold mb-4">
-              Средняя<br />вероятность СДВГ
-            </h1>
-
-            <p class="text-sm md:text-base mb-6 opacity-80">У вас есть некоторые признаки СДВГ. Рекомендуем изучить наш курс и при необходимости обратиться к специалисту.</p>
-
-            <div class="inline-flex items-center gap-2 rounded-lg border border-black/10 bg-white px-4 py-2 text-sm font-medium">
-              <span class="result-score"></span>
-            </div>
-          </div>
-
-          <Image src={import('@/assets/medium-results.png')} alt="Medium result" class="hidden md:block -mb-10 z-0" />
-        </div>
-      </div>
-
-      <!-- High result card -->
-      <div id="result-high" class="hidden rounded-2xl p-6 md:p-8 mb-12 overflow-hidden bg-[#f5a08c]">
-        <div class="flex justify-between items-center">
-          <div class="relative z-10 max-w-lg">
-            <h1 class="text-3xl md:text-4xl font-bold mb-4">Высокая<br />вероятность СДВГ</h1>
-            <p class="text-sm md:text-base mb-6 opacity-80">У вас много признаков СДВГ. Рекомендуем пройти наш курс и обратиться к врачу для официальной диагностики.</p>
-            <div class="inline-flex items-center gap-2 rounded-lg border border-black/10 bg-white px-4 py-2 text-sm font-medium">
-              <span class="result-score"></span>
-            </div>
-          </div>
-          <Image src={import('@/assets/hight-results.png')} alt="High result" class="hidden md:block -mb-10 z-0" />
-        </div>
-      </div>
-
-      <!-- Course promo block (hidden initially, shown after results) -->
       <div id="course-promo-wrapper" class="hidden">
         <CoursePromo />
       </div>
@@ -210,7 +202,6 @@ const questions = [
   const btnPrev = document.getElementById('btn-prev') as HTMLButtonElement;
   const quizSection = document.getElementById('quiz-section')!;
   const loaderSection = document.getElementById('loader-section')!;
-  const resultsSection = document.getElementById('results-section')!;
 
   function updateProgress() {
     const percent = Math.round((currentQuestion / totalQuestions) * 100);
@@ -267,11 +258,11 @@ const questions = [
         // Highlight selected option
         const labels = slide.querySelectorAll('.quiz-option');
         labels.forEach((label) => {
-          label.classList.remove('bg-primary/5', 'border-primary/30');
+          label.classList.remove('bg-primary/5', 'border-primary');
         });
         const parentLabel = radio.closest('.quiz-option');
         if (parentLabel) {
-          parentLabel.classList.add('bg-primary/5', 'border-primary/30');
+          parentLabel.classList.add('bg-primary/5', 'border-primary');
         }
       });
     });
@@ -304,8 +295,8 @@ const questions = [
     loaderSection.classList.remove('hidden');
     await animate(loaderSection, { opacity: [0, 1] }, { duration: 0.3, ease: 'easeOut' }).finished;
 
-    // Wait 3-5 seconds
-    const delay = 3000 + Math.random() * 2000;
+    // Wait 2-3 seconds
+    const delay = 2000 + Math.random() * 1000;
     await new Promise((resolve) => setTimeout(resolve, delay));
 
     // Fade out loader
@@ -317,6 +308,10 @@ const questions = [
   }
 
   async function showResults() {
+    // Hide quiz section
+    await animate(quizSection, { opacity: [1, 0] }, { duration: 0.3, ease: 'easeIn' }).finished;
+    quizSection.style.display = 'none';
+
     let totalScore = 0;
     for (const key in answers) {
       totalScore += parseInt(answers[key]);
@@ -356,10 +351,7 @@ const questions = [
     // Show and animate course promo
     const coursePromoWrapper = document.getElementById('course-promo-wrapper')!;
     coursePromoWrapper.classList.remove('hidden');
-    await animate(coursePromoWrapper, { opacity: [0, 1], y: [20, 0] }, { duration: 0.5, ease: 'easeOut' }).finished;
-
-   
-    animate(resultsSection, { opacity: [0, 1] }, { duration: 0.5, ease: 'easeOut' });
+    await animate(coursePromoWrapper, { opacity: [0, 1], y: [20, 0] }, { duration: 0.4, ease: 'easeOut' }).finished;
   }
 
   // Initial state
