@@ -161,22 +161,22 @@ const results = [
       <!-- Results section (shown after loader) -->
       {
         results.map((result) => (
-          <div id={`result-${result.id}`} class:list={['hidden rounded-2xl p-6 md:p-8 mb-12 overflow-hidden', result.bgColor]}>
+          <div id={`result-${result.id}`} class:list={['hidden rounded-2xl p-6 md:p-8 xl:p-12 mb-12 overflow-hidden', result.bgColor]}>
             <div class="flex justify-between items-center">
-              <div class="relative z-10 md:text-center max-w-[530px]">
-                <h1 class="text-3xl md:text-4xl lg:text-5xl font-semibold mb-4" set:html={result.title} />
-                <p class="text-sm md:text-base mb-6 opacity-80">{result.description}</p>
+              <div class="relative z-10 md:text-center max-w-[530px] space-y-5">
+                <h1 class="text-3xl md:text-4xl lg:text-5xl font-semibold" set:html={result.title} />
+                <p class="text-sm md:text-base opacity-80">{result.description}</p>
                 <div class="inline-flex items-center gap-2 rounded-lg border border-black/10 bg-white px-4 py-2 font-medium">
                   <span class="result-score"></span>
                 </div>
               </div>
-              <Image src={result.image} alt={`${result.id} result`} quality={100} class="hidden md:block -mb-10 z-0" />
+              <Image src={result.image} alt={`${result.id} result`} quality={100} class="hidden md:block -mb-12 z-0" />
             </div>
           </div>
         ))
       }
 
-      <div id="course-promo-wrapper" class="hidden">
+      <div id="course-promo-wrapper" class="hidden mt-10 md:mt-20">
         <CoursePromo />
       </div>
     </div>
