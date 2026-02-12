@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import education1 from '@/assets/education/1.webp';
 import education2 from '@/assets/education/2.png';
 import education3 from '@/assets/education/3.webp';
+import data from '@/data/education.yaml';
 
 interface EducationItem {
   title: string;
@@ -14,28 +15,28 @@ interface EducationItem {
 
 const items: EducationItem[] = [
   {
-    title: 'Учитесь в своём темпе',
-    description: 'Короткие уроки без дедлайнов и давления. Учись, когда есть ресурс.',
+    title: data.items[0]?.title || 'Учитесь в своём темпе',
+    description: data.items[0]?.description || 'Короткие уроки без дедлайнов и давления. Учись, когда есть ресурс.',
     image: education1,
     bgClass: 'bg-[linear-gradient(180deg,#FFE699_0%,#FFF5D7_100%)]',
     gridClass: 'md:col-span-3',
   },
   {
-    title: 'Практические задания',
-    description: 'Простые чек-листы и упражнения для внедрения полезных привычек в жизнь.',
+    title: data.items[1]?.title || 'Практические задания',
+    description: data.items[1]?.description || 'Простые чек-листы и упражнения для внедрения полезных привычек в жизнь.',
     image: education2,
     bgClass: 'bg-[linear-gradient(180deg,#FFCCFA_0%,#FFE9FD_100%)]',
     gridClass: 'md:col-span-2',
   },
   {
-    title: 'Поддержка',
-    description: 'Техника помощи при перегрузках и бережное сообщество тех, кто понимает.',
+    title: data.items[2]?.title || 'Поддержка',
+    description: data.items[2]?.description || 'Техника помощи при перегрузках и бережное сообщество тех, кто понимает.',
     bgClass: 'bg-[linear-gradient(180deg,#FFCCFA_0%,#FFE9FD_100%)]',
     gridClass: 'md:col-span-2',
   },
   {
-    title: 'Персональный план',
-    description: 'Индивидуальный график задач, под ваш уровень энергии и цели.',
+    title: data.items[3]?.title || 'Персональный план',
+    description: data.items[3]?.description || 'Индивидуальный график задач, под ваш уровень энергии и цели.',
     image: education3,
     bgClass: 'bg-[linear-gradient(180deg,#B0E8FD_0%,#E4F8FF_100%)]',
     gridClass: 'md:col-span-3',

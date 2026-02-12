@@ -1,7 +1,7 @@
 import tailwindcss from '@tailwindcss/vite';
 // @ts-check
 import { defineConfig, fontProviders } from 'astro/config';
-
+import yaml from '@rollup/plugin-yaml';
 // https://astro.build/config
 export default defineConfig({
   experimental: {
@@ -39,6 +39,6 @@ export default defineConfig({
     ],
   },
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [tailwindcss(), yaml()],
   },
 });

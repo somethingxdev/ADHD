@@ -1,0 +1,21 @@
+title: Как проходит обучение
+items:
+  - title: Учитесь в своём темпе
+    description: Короткие уроки без дедлайнов и давления. Учись, когда есть ресурс.
+    image: /media/education/1.webp
+    bgClass: bg-[linear-gradient(180deg,#FFE699_0%,#FFF5D7_100%)]
+    gridClass: md:col-span-3
+  - title: Практические задания
+    description: Простые чек-листы и упражнения для внедрения полезных привычек в жизнь.
+    image: /media/education/2.png
+    bgClass: bg-[linear-gradient(180deg,#FFCCFA_0%,#FFE9FD_100%)]
+    gridClass: md:col-span-2
+  - title: Поддержка
+    description: Техника помощи при перегрузках и бережное сообщество тех, кто понимает.
+    bgClass: bg-[linear-gradient(180deg,#FFCCFA_0%,#FFE9FD_100%)]
+    gridClass: md:col-span-2
+  - title: Персональный план
+    description: Индивидуальный график задач, под ваш уровень энергии и цели.
+    image: /media/education/3.webp
+    bgClass: bg-[linear-gradient(180deg,#B0E8FD_0%,#E4F8FF_100%)]
+    gridClass: md:col-span-3

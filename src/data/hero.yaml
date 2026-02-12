@@ -1,0 +1,20 @@
+title: Думаете, у вас СДВГ? Пройдите бесплатный тест за 2 минуты
+description: Узнайте, есть ли у вас признаки синдрома дефицита внимания и получите персональные рекомендации
+cta1_text: Пройти тест бесплатно
+cta1_url: /test
+cta2_text: Узнать больше
+cta2_url: /about
+image: /media/hero.webp
+items:
+  - icon: loader
+    title: Мозг будто «завис»?
+    color: '#9FE5FF'
+  - icon: focus
+    title: Сложно сосредоточиться?
+    color: '#FDC4F7'
+  - icon: router
+    title: Бросаете на полпути?
+    color: '#66EBD1'
+  - icon: component
+    title: Часто забываете важное?
+    color: '#FFE491'

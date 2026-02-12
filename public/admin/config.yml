@@ -1,0 +1,148 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+local_backend: true
+
+backend:
+  name: github
+  repo: user/repo
+
+media_folder: public/media
+public_folder: /media
+
+singletons:
+
+  - name: meta
+    label: Мета-данные сайта
+    file: src/data/meta.yaml
+    fields:
+      - { label: Заголовок сайта, name: title, widget: string }
+      - { label: Описание сайта, name: description, widget: text }
+      - { label: Favicon, name: favicon, widget: image }
+
+  - name: hero
+    label: Первый экран
+    file: src/data/hero.yaml
+    fields:
+      - { label: Заголовок, name: title, widget: string }
+      - { label: Описание, name: description, widget: text }
+      - { label: Текст кнопки 1, name: cta1_text, widget: string }
+      - { label: Ссылка кнопки 1, name: cta1_url, widget: string }
+      - { label: Текст кнопки 2, name: cta2_text, widget: string }
+      - { label: Ссылка кнопки 2, name: cta2_url, widget: string }
+      - { label: Изображение, name: image, widget: image }
+      - label: Элементы
+        name: items
+        widget: list
+        fields:
+          - { label: Иконка (SVG), name: icon, widget: string }
+          - { label: Заголовок, name: title, widget: string }
+          - { label: Цвет фона, name: color, widget: color }
+
+  - name: signs
+    label: Признаки СДВГ
+    file: src/data/signs.yaml
+    fields:
+      - { label: Заголовок секции, name: title, widget: string }
+      - label: Признаки
+        name: items
+        widget: list
+        fields:
+          - { label: Заголовок, name: title, widget: string }
+          - { label: Описание, name: description, widget: text }
+
+  - name: start
+    label: Перейти к тесту на СДВГ
+    file: src/data/start.yaml
+    fields:
+      - { label: Текст счётчика, name: counter_text, widget: string }
+      - { label: Заголовок, name: title, widget: string }
+      - { label: Описание, name: description, widget: text }
+      - { label: Текст кнопки, name: cta_text, widget: string }
+      - { label: Ссылка кнопки, name: cta_url, widget: string }
+      - { label: Изображение, name: image, widget: image }
+
+  - name: why
+    label: Для кого тест
+    file: src/data/why.yaml
+    fields:
+      - { label: Заголовок секции, name: title, widget: string }
+      - label: Элементы
+        name: items
+        widget: list
+        fields:
+          - { label: Заголовок, name: title, widget: string }
+          - { label: Описание, name: description, widget: text }
+
+  - name: course
+    label: Программа курса
+    file: src/data/course.yaml
+    fields:
+      - { label: Заголовок секции, name: title, widget: string }
+      - label: Уроки
+        name: lessons
+        widget: list
+        fields:
+          - { label: Название, name: title, widget: string }
+          - label: Контент
+            name: content
+            widget: richtext
+
+  - name: education
+    label: Обучение
+    file: src/data/education.yaml
+    fields:
+      - { label: Заголовок секции, name: title, widget: string }
+      - label: Элементы
+        name: items
+        widget: list
+        fields:
+          - { label: Заголовок, name: title, widget: string }
+          - { label: Описание, name: description, widget: text }
+
+  - name: faq
+    label: FAQ
+    file: src/data/faq.yaml
+    fields:
+      - { label: Заголовок секции, name: title, widget: string }
+      - label: Вопросы
+        name: items
+        widget: list
+        fields:
+          - { label: Вопрос, name: question, widget: string }
+          - { label: Ответ, name: answer, widget: text }
+      - { label: Заголовок карточки, name: card_title, widget: string }
+      - { label: Описание карточки, name: card_description, widget: text }
+      - { label: Текст кнопки карточки, name: card_button_text, widget: string }
+
+  - name: course_promo
+    label: Промо курса
+    file: src/data/course_promo.yaml
+    fields:
+      - { label: Заголовок, name: title, widget: string }
+      - label: Что включено
+        name: included
+        widget: list
+        field: { label: Пункт, name: item, widget: string }
+      - { label: Текущая цена, name: price, widget: string }
+      - { label: Старая цена, name: old_price, widget: string }
+      - { label: Текст кнопки, name: button_text, widget: string }
+      - { label: Изображение слева, name: image_left, widget: image }
+      - { label: Изображение справа, name: image_right, widget: image }
+
+  - name: test
+    label: Тест на СДВГ
+    file: src/data/test.yaml
+    fields:
+      - { label: Заголовок страницы, name: page_title, widget: string }
+      - label: Вопросы теста
+        name: questions
+        widget: list
+        fields:
+          - { label: Текст вопроса, name: text, widget: string }
+          - label: Варианты ответа
+            name: options
+            widget: list
+            field: { label: Вариант, name: option, widget: string }
+      - { label: Заголовок боковой панели, name: sidebar_title, widget: string }
+      - { label: Текст кнопки боковой панели, name: sidebar_button, widget: string }
+      - { label: Текст загрузки, name: loader_text, widget: string }
+      - { label: Подтекст загрузки, name: loader_subtext, widget: string }

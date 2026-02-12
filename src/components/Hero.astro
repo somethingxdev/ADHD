@@ -7,47 +7,31 @@ import LoaderIcon from '@/icons/loader.svg';
 import FocusIcon from '@/icons/focus.svg';
 import RouterIcon from '@/icons/router.svg';
 import ComponentIcon from '@/icons/component.svg';
+import data from '@/data/hero.yaml';
 
-interface Item {
-  title: string;
-  icon: SvgComponent;
-  color: string;
-}
+const iconMap: Record<string, SvgComponent> = {
+  loader: LoaderIcon,
+  focus: FocusIcon,
+  router: RouterIcon,
+  component: ComponentIcon,
+};
 
-const items: Item[] = [
-  {
-    icon: LoaderIcon,
-    title: 'Мозг будто «завис»?',
-    color: '#9FE5FF',
-  },
-  {
-    icon: FocusIcon,
-    title: 'Сложно сосредоточиться?',
-    color: '#FDC4F7',
-  },
-  {
-    icon: RouterIcon,
-    title: 'Бросаете на полпути?',
-    color: '#66EBD1',
-  },
-  {
-    icon: ComponentIcon,
-    title: 'Часто забываете важное?',
-    color: '#FFE491',
-  },
-];
+const items = data.items.map((item: { icon: string; title: string; color: string }) => ({
+  ...item,
+  icon: iconMap[item.icon] || LoaderIcon,
+}));
 ---
 
 <section class="py-10 lg:py-20">
   <div class="container">
     <div class="flex flex-col md:flex-row items-center justify-between gap-14 md:mb-8">
       <div class="md:max-w-[758px]">
-        <h1 class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold mb-5 leading-tight">Думаете, у вас СДВГ? Пройдите бесплатный тест за 2 минуты</h1>
-        <p class="text-muted-foreground text-lg mb-8 md:max-w-[530px]">Узнайте, есть ли у вас признаки синдрома дефицита внимания и получите персональные рекомендации</p>
+        <h1 class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold mb-5 leading-tight">{data?.title}</h1>
+        <p class="text-muted-foreground text-lg mb-8 md:max-w-[530px]">{data?.description}</p>
 
         <div class="flex flex-col sm:flex-row w-full items-center gap-3">
-          <Button class="w-full sm:w-auto has-[>svg]:px-8" href="/test">Пройти тест бесплатно <ArrowRight /></Button>
-          <Button class="w-full sm:w-auto px-8" variant="outline"> Узнать больше</Button>
+          <Button class="w-full sm:w-auto has-[>svg]:px-8" href={data?.cta1_url}>{data?.cta1_text} <ArrowRight /></Button>
+          <Button class="w-full sm:w-auto px-8" variant="outline" href={data?.cta2_url}>{data?.cta2_text}</Button>
         </div>
       </div>
       <div class="shrink-0 max-w-xs xl:max-w-lg">
@@ -55,7 +39,7 @@ const items: Item[] = [
       </div>
     </div>
 
-    <div class="grid  sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {
         items.map((item) => (
           <div class="bg-card p-4 flex items-center gap-4 rounded-xl">

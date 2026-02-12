@@ -1,42 +1,35 @@
 ---
 import { CircleCheck, TriangleAlert } from '@lucide/astro';
 import { Image } from 'astro:assets';
+import data from '@/data/course_promo.yaml';
+
+const included: string[] = data.included;
 ---
 
 <section id="course-promo-section" class="relative md:max-w-[590px] mx-auto">
   <Image src={import('@/assets/promo-top.png')} quality={100} alt="Course Promo" class="absolute -left-60 object-cover max-w-[220px] hidden lg:block" />
   <Image src={import('@/assets/promo-bottom.png')} quality={100} alt="Course Promo" class="absolute -right-60 bottom-0 object-cover max-w-[220px] hidden lg:block" />
   <div class="bg-[#FFE8A0] rounded-2xl p-6 md:p-8">
-    <h2 class="text-2xl md:text-3xl font-semibold text-[#1a1a1a] mb-8">
-      Курс поможет вам научиться жить<br />с СДВГ продуктивно
-    </h2>
+    <h2 class="text-2xl md:text-3xl font-semibold text-[#1a1a1a] mb-8" set:html={data.title}></h2>
 
     <div class="mb-8">
       <p class="font-medium mb-4">Включено:</p>
       <ul class="space-y-3 text-sm md:text-base">
-        <li class="flex items-center gap-3">
-          <CircleCheck class="size-5 text-primary shrink-0" />
-          <span>7 видео-уроков по управлению СДВГ</span>
-        </li>
-        <li class="flex items-center gap-3">
-          <CircleCheck class="size-5 text-primary shrink-0" />
-          <span>Практические задания и чек-листы</span>
-        </li>
-        <li class="flex items-center gap-3">
-          <CircleCheck class="size-5 text-primary shrink-0" />
-          <span>Доступ к закрытому сообществу</span>
-        </li>
-        <li class="flex items-center gap-3">
-          <CircleCheck class="size-5 text-primary shrink-0" />
-          <span>Поддержка куратора</span>
-        </li>
+        {
+          included.map((item: string) => (
+            <li class="flex items-center gap-3">
+              <CircleCheck class="size-5 text-primary shrink-0" />
+              <span>{item}</span>
+            </li>
+          ))
+        }
       </ul>
     </div>
 
     <div class="bg-white rounded-xl p-6 text-center mb-6">
       <p class="text-lg font-semibold text-[#1a1a1a] mb-4">
-        Новая цена: <span class="text-2xl">29 ₽</span>
-        <span class="text-gray-400 line-through ml-2 font-normal">990 ₽</span>
+        Новая цена: <span class="text-2xl">{data.price}</span>
+        <span class="text-gray-400 line-through ml-2 font-normal">{data.old_price}</span>
       </p>
 
       <div class="flex items-center justify-center gap-2 text-[#1a1a1a]" id="countdown">
@@ -57,7 +50,7 @@ import { Image } from 'astro:assets';
       </div>
     </div>
 
-    <button class="w-full bg-[#2FA39D] hover:bg-[#268e89] text-white font-medium py-4 rounded-lg transition-colors mb-6"> Получить доступ за 29 ₽ </button>
+    <button class="w-full bg-[#2FA39D] hover:bg-[#268e89] text-white font-medium py-4 rounded-lg transition-colors mb-6">{data.button_text}</button>
 
     <div class="flex flex-col justify-center items-center gap-2 text-muted-foreground text-sm text-center">
       <p class="flex items-center gap-2"><TriangleAlert class="size-4 shrink-0" />Это не медицинский диагноз.</p>

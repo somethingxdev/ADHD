@@ -8,165 +8,36 @@ import AccordionItem from './starwind/accordion/AccordionItem.astro';
 import AccordionTrigger from './starwind/accordion/AccordionTrigger.astro';
 import AccordionContent from './starwind/accordion/AccordionContent.astro';
 import { Star } from '@lucide/astro';
-
-interface Lesson {
-  id: string;
-  title: string;
-  hasStar?: boolean;
-  items: string[];
-}
-
-const lessons: Lesson[] = [
-  {
-    id: '1',
-    title: 'Понимание СДВГ',
-    items: [
-      'Что такое СДВГ и как он проявляется у взрослых?',
-      'Мифы и правда о СДВГ',
-      '3 типа СДВГ: невнимательный, гиперактивный, комбинированный',
-      'Почему СДВГ — это не лень и не плохой характер',
-      'Как СДВГ влияет на работу, отношения и самооценку',
-      'Дофамин и система вознаграждения — почему вам скучно',
-      'Исполнительные функции: что это и почему они «сломаны»',
-      'Рабочая память: почему вы забываете всё на свете',
-      'Восприятие времени при СДВГ (слепота ко времени)',
-      'Гиперфокус: суперсила или ловушка?',
-    ],
-  },
-  {
-    id: '2',
-    title: 'Диагностика и принятие',
-    items: [
-      'Как получить диагноз и стоит ли это делать',
-      'Разница между самодиагностикой и профессиональной помощью',
-      'Принятие себя с СДВГ: работа с внутренним критиком',
-      'Как рассказать близким о своём диагнозе',
-      'Лекарственная терапия: основы и мифы',
-    ],
-  },
-  {
-    id: '3',
-    title: 'Прокрастинация',
-    hasStar: true,
-    items: [
-      'Почему при СДВГ сложно начать задачу',
-      'Метод «кусочков»: разбиение больших задач',
-      'Техники запуска: как обмануть мозг',
-      'Body doubling: работаем вместе онлайн',
-      'Антиперфекционизм: сделано лучше, чем идеально',
-    ],
-  },
-  {
-    id: '4',
-    title: 'Фокус и концентрация',
-    items: [
-      'Контекст — всё: подготовка окружения',
-      'Метод помидора и его вариации для СДВГ',
-      'Управление отвлечениями: цифровая гигиена',
-      'Медитация для неспособных медитировать',
-      'Слуховые техники: музыка и white noise',
-    ],
-  },
-  {
-    id: '5',
-    title: 'Планирование и организация',
-    items: [
-      'Внешние системы поддержки: что работает при СДВГ',
-      'Календарь, который реально используется',
-      'Списки задач без перегрузки',
-      'Time blocking для «временной слепоты»',
-      'Наглядные напоминания и визуальные якоря',
-    ],
-  },
-  {
-    id: '6',
-    title: 'Эмоции и энергия',
-    items: [
-      'Эмоциональная дисрегуляция при СДВГ',
-      'Управление раздражительностью и импульсивностью',
-      'Сон и СДВГ: как улучшить качество отдыха',
-      'Физическая активность как «естественное лекарство»',
-      'Питание и добавки, влияющие на симптомы',
-    ],
-  },
-  {
-    id: '7',
-    title: 'Привычки и рутины',
-    items: [
-      'Почему привычки «не приживаются» и что с этим делать',
-      'Habit stacking: цепляем новое к старому',
-      'Минимальные версии привычек',
-      'Автоматизация рутины: убираем принятие решений',
-      'Восстановление после срыва: без самоедства',
-    ],
-  },
-  {
-    id: '8',
-    title: 'Работа и карьера с СДВГ',
-    items: [
-      'Поиск подходящей работы: что важно при СДВГ',
-      'Как говорить о СДВГ на работе',
-      'Адаптация рабочего места под себя',
-      'Управление дедлайнами и многозадачностью',
-      'Сильные стороны СДВГ в профессии',
-    ],
-  },
-  {
-    id: '9',
-    title: 'Отношения и общение',
-    items: [
-      'Коммуникация: слушание и не перебивание',
-      'Память о важном: дни рождения и события',
-      'Бытовые дела: справедливое распределение',
-      'Близость и эмоциональная доступность',
-      'Секс и СДВГ: внимание и импульсивность',
-    ],
-  },
-  {
-    id: '10',
-    title: 'Жизнь с СДВГ — долгосрочная стратегия',
-    items: [
-      'Построение системы поддержки: команда и сообщество',
-      'Регулярный пересмотр стратегий',
-      'Самокомпассия: быть добрее к себе',
-      'СДВГ как часть идентичности, не недостаток',
-      'План дальнейшего развития после курса',
-    ],
-  },
-];
+import course from '../data/course.yaml';
+import { Markdown } from '@astropub/md'
+const { title, subtitle, lessons } = course;
 ---
 
 <section class="py-10 lg:py-20">
   <div class="container">
-    <h2 class="text-3xl md:text-4xl lg:text-5xl font-semibold mb-6 lg:mb-12">
-      Программа курса<br class="hidden md:block" /> по управлению СДВГ — 2 месяца
+    <h2 class="text-3xl md:text-4xl lg:text-5xl font-semibold mb-6 lg:mb-12 md:max-w-3xl">
+      {title}
     </h2>
 
     <!-- Desktop: Tabs -->
     <Tabs defaultValue="1" class="hidden md:grid grid-cols-2 gap-8">
       <TabsList class="flex flex-col items-stretch gap-2 bg-transparent p-0 h-auto w-full">
         {
-          lessons.map((lesson) => (
-            <TabsTrigger value={lesson.id} class="justify-start px-4 py-3 text-left rounded-lg data-[state=active]:bg-linear-to-r data-[state=active]:from-[#D7F4FF] data-[state=active]:to-[#F6FDFF] data-[state=active]:text-foreground hover:bg-muted/50">
-              <span class="text-muted-foreground mr-3">{lesson.id}.</span>
+          lessons.map((lesson, index) => (
+            <TabsTrigger value={index + 1} class="justify-start px-4 py-3 text-left rounded-lg data-[state=active]:bg-linear-to-r data-[state=active]:from-[#D7F4FF] data-[state=active]:to-[#F6FDFF] data-[state=active]:text-foreground hover:bg-muted/50">
+              <span class="text-muted-foreground mr-3">{index + 1}.</span>
               <span class="font-medium">{lesson.title}</span>
-              {lesson.hasStar && <Star class="ml-2 size-4 text-yellow-500 fill-yellow-500" />}
             </TabsTrigger>
           ))
         }
       </TabsList>
 
       {
-        lessons.map((lesson) => (
-          <TabsContent value={lesson.id} class="bg-muted/50 rounded-xl p-8 mt-0">
-            <ul class="space-y-3">
-              {lesson.items.map((item) => (
-                <li class="flex items-start gap-3">
-                  <span class="text-muted-foreground mt-1">•</span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
+        lessons.map((lesson, index) => (
+          <TabsContent value={index + 1} class="bg-muted/50 rounded-xl p-6 mt-0">
+            <article class="prose">
+               <Markdown of={lesson.content} />
+            </article>
           </TabsContent>
         ))
       }
@@ -175,24 +46,16 @@ const lessons: Lesson[] = [
     <!-- Mobile: Accordion -->
     <Accordion type="single" defaultValue="1" class="md:hidden">
       {
-        lessons.map((lesson) => (
-          <AccordionItem value={lesson.id}>
+        lessons.map((lesson, index) => (
+          <AccordionItem value={index + 1}>
             <AccordionTrigger>
               <span class="flex items-center">
-            
                 <span class="font-medium">{lesson.title}</span>
                 {lesson.hasStar && <Star class="ml-2 size-4 text-yellow-500 fill-yellow-500" />}
               </span>
             </AccordionTrigger>
             <AccordionContent>
-              <ul class="space-y-2">
-                {lesson.items.map((item) => (
-                  <li class="flex items-start gap-3 text-muted-foreground">
-                    <span class="text-muted-foreground mt-1">•</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
+               <Fragment set:html={index + 1}/>
             </AccordionContent>
           </AccordionItem>
         ))

@@ -4,38 +4,27 @@ import ScanEyeIcon from '@/icons/scan-eye.svg';
 import SchoolIcon from '@/icons/school.svg';
 import BusinessIcon from '@/icons/business.svg';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from './starwind/card';
+import data from '@/data/why.yaml';
 
-interface WhyItem {
-  icon: SvgComponent;
-  title: string;
-  description: string;
-}
 
-const items: WhyItem[] = [
-  {
-    icon: ScanEyeIcon,
-    title: 'Тем, кто подозревает СДВГ',
-    description: 'Чувствуете, что с вами "что-то не так"? Тест поможет разобраться',
-  },
-  {
-    icon: SchoolIcon,
-    title: 'Студентам и школьникам',
-    description: 'Проблемы с учебой могут быть связаны с СДВГ, а не с ленью',
-  },
-  {
-    icon: BusinessIcon,
-    title: 'Взрослым на работе',
-    description: 'Не справляетесь с задачами? СДВГ может быть причиной',
-  },
-];
+const iconMap: Record<string, SvgComponent> = {
+  'scan-eye': ScanEyeIcon,
+  school: SchoolIcon,
+  business: BusinessIcon,
+};
+
+const items = data.items.map((item: { icon: string; title: string; description: string }) => ({
+  ...item,
+  icon: iconMap[item.icon] || ScanEyeIcon,
+}));
 ---
 
 <section class="py-10 lg:py-20">
   <div class="container">
-    <h2 class="md:text-center text-3xl md:text-4xl lg:text-5xl font-semibold mb-6 md:mb-12">Кому стоит пройти тест?</h2>
+    <h2 class="md:text-center text-3xl md:text-4xl lg:text-5xl font-semibold mb-6 md:mb-12">{data.title}</h2>
     <div class="grid md:grid-cols-3 gap-5 lg:gap-8">
       {
-        items.map((item) => (
+        items.map((item: { icon: SvgComponent; title: string; description: string }) => (
           <Card class="gap-4 md:gap-12">
             <CardHeader>
               <item.icon />

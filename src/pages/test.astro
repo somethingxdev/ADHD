@@ -9,66 +9,36 @@ import Button from '@/components/starwind/button';
 import CoursePromo from '@/components/CoursePromo.astro';
 import { Image } from 'astro:assets';
 import { ArrowLeft, ArrowRight } from '@lucide/astro';
+import data from '@/data/test.yaml';
+import lowResultsImage from '@/assets/low-results.png';
+import mediumResultsImage from '@/assets/medium-results.png';
+import highResultsImage from '@/assets/hight-results.png';
+import buyCourseImage from '@/assets/buy-course.png';
 
-const questions = [
-  {
-    id: 1,
-    text: 'Как часто вы испытываете трудности с концентрацией на задачах?',
-    options: ['Никогда', 'Редко', 'Иногда', 'Часто', 'Очень часто'],
-  },
-  // {
-  //   id: 2,
-  //   text: 'Как часто вы откладываете важные дела на потом?',
-  //   options: ['Никогда', 'Редко', 'Иногда', 'Часто', 'Очень часто'],
-  // },
-  // {
-  //   id: 3,
-  //   text: 'Как часто вам сложно довести начатое дело до конца?',
-  //   options: ['Никогда', 'Редко', 'Иногда', 'Часто', 'Очень часто'],
-  // },
-  // {
-  //   id: 4,
-  //   text: 'Как часто вы чувствуете усталость или выгорание без явной причины?',
-  //   options: ['Никогда', 'Редко', 'Иногда', 'Часто', 'Очень часто'],
-  // },
-  // {
-  //   id: 5,
-  //   text: 'Как часто вы отвлекаетесь на телефон или посторонние мысли во время работы?',
-  //   options: ['Никогда', 'Редко', 'Иногда', 'Часто', 'Очень часто'],
-  // },
-  // {
-  //   id: 6,
-  //   text: 'Как часто вам трудно начать новую задачу, даже если она важная?',
-  //   options: ['Никогда', 'Редко', 'Иногда', 'Часто', 'Очень часто'],
-  // },
-  // {
-  //   id: 7,
-  //   text: 'Как часто вы испытываете ощущение, что дел слишком много и вы не справляетесь?',
-  //   options: ['Никогда', 'Редко', 'Иногда', 'Часто', 'Очень часто'],
-  // },
-];
+const questions = data.questions;
 
+// Static results
 const results = [
   {
     id: 'low',
-    title: 'Низкая<br />вероятность СДВГ',
+    title: 'Низкая вероятность СДВГ',
     description: 'У вас мало признаков СДВГ. Однако, если вы испытываете трудности с концентрацией или организацией, курс всё равно может быть полезен.',
     bgColor: 'bg-[#3edbd3]',
-    image: import('@/assets/low-results.png'),
+    image: lowResultsImage,
   },
   {
     id: 'medium',
-    title: 'Средняя<br />вероятность СДВГ',
+    title: 'Средняя вероятность СДВГ',
     description: 'У вас есть некоторые признаки СДВГ. Рекомендуем изучить наш курс и при необходимости обратиться к специалисту.',
     bgColor: 'bg-[#93b5f5]',
-    image: import('@/assets/medium-results.png'),
+    image: mediumResultsImage,
   },
   {
     id: 'high',
-    title: 'Высокая<br />вероятность СДВГ',
+    title: 'Высокая вероятность СДВГ',
     description: 'У вас много признаков СДВГ. Рекомендуем пройти наш курс и обратиться к врачу для официальной диагностики.',
     bgColor: 'bg-[#f5a08c]',
-    image: import('@/assets/hight-results.png'),
+    image: highResultsImage,
   },
 ];
 ---
@@ -140,11 +110,9 @@ const results = [
 
           <!-- Right: Course program stub -->
           <div class="rounded-2xl bg-[#FFE699] p-6" id="course-sidebar">
-            <h3 class="text-2xl font-bold mb-4 leading-snug">
-              Программа курса<br />по управлению СДВГ
-            </h3>
-            <Image src={import('@/assets/buy-course.png')} alt="Brain character" class="mx-auto" />
-            <Button variant="default" class="w-full bg-black"> Приобрести программу </Button>
+            <h3 class="text-2xl font-bold mb-4 leading-snug" set:html={data.sidebar_title}></h3>
+            <Image src={buyCourseImage} alt="Brain character" class="mx-auto" />
+            <Button variant="default" class="w-full bg-black">{data.sidebar_button}</Button>
           </div>
         </div>
       </div>
@@ -153,8 +121,8 @@ const results = [
       <div id="loader-section" class="hidden">
         <div class="flex flex-col items-center justify-center py-32">
           <Spinner class="size-12 text-primary mb-6" />
-          <p class="text-lg font-medium text-foreground">Анализируем ваши ответы...</p>
-          <p class="text-sm text-muted-foreground mt-1">Это займёт несколько секунд</p>
+          <p class="text-lg font-medium text-foreground">{data.loader_text}</p>
+          <p class="text-sm text-muted-foreground mt-1">{data.loader_subtext}</p>
         </div>
       </div>
 

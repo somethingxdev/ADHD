@@ -2,43 +2,18 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './starwind/accordion';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from './starwind/card';
 import Button from './starwind/button';
+import data from '@/data/faq.yaml';
 
-interface FaqItem {
-  question: string;
-  answer: string;
-}
-
-const faqs: FaqItem[] = [
-  {
-    question: 'Это официальный диагноз?',
-    answer: 'Это не медицинский диагноз. Для точной диагностики обратитесь к врачу.',
-  },
-  {
-    question: 'У меня точно СДВГ?',
-    answer: 'Тест носит ознакомительный характер. Только специалист может поставить диагноз.',
-  },
-  {
-    question: 'Курс подойдёт без диагноза?',
-    answer: 'Да, курс будет полезен всем, кто хочет лучше понять себя и развить навыки управления вниманием.',
-  },
-  {
-    question: 'Сколько длится доступ?',
-    answer: 'Доступ к материалам курса сохраняется навсегда после покупки.',
-  },
-  {
-    question: 'Можно ли вернуть деньги?',
-    answer: 'Да, мы предоставляем возврат в течение 14 дней, если курс вам не подошёл.',
-  },
-];
+const items = data.items;
 ---
 
 <section class="py-10 md:py-20" id="faq">
   <div class="container max-w-3xl">
-    <h2 class="text-center text-3xl md:text-5xl font-semibold mb-6 md:mb-12">FAQ</h2>
+    <h2 class="text-center text-3xl md:text-5xl font-semibold mb-6 md:mb-12">{data.title}</h2>
 
     <Accordion type="single" defaultValue="item-0" class="mb-12">
       {
-        faqs.map((faq, index) => (
+        items.map((faq: { question: string; answer: string }, index: number) => (
           <AccordionItem value={`item-${index}`}>
             <AccordionTrigger>{faq.question}</AccordionTrigger>
             <AccordionContent class="text-muted-foreground">{faq.answer}</AccordionContent>
@@ -49,11 +24,11 @@ const faqs: FaqItem[] = [
 
     <Card class="text-center">
       <CardHeader>
-        <CardTitle class="text-2xl mb-2">Остались вопросы?</CardTitle>
-        <CardDescription class="mb-6"> Есть вопросы или нужна помощь? Наша команда готова помочь! </CardDescription>
+        <CardTitle class="text-2xl mb-2">{data.card_title}</CardTitle>
+        <CardDescription class="mb-6">{data.card_description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <Button>Напиши нам</Button>
+        <Button>{data.card_button_text}</Button>
       </CardContent>
     </Card>
   </div>
