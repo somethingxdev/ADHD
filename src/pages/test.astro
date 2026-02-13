@@ -17,7 +17,6 @@ import buyCourseImage from '@/assets/buy-course.png';
 
 const questions = data.questions;
 
-// Static results
 const results = [
   {
     id: 'low',
@@ -58,11 +57,10 @@ const results = [
         </BreadcrumbList>
       </Breadcrumb>
 
-      <!-- Quiz section (hidden after completion) -->
+
       <div id="quiz-section">
         <div class="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8 items-start">
-          <!-- Left: Quiz card -->
-
+  
           <div>
             <Card id="quiz-card" class="md:p-0">
               <CardContent class="md:px-8 md:py-8">
@@ -73,7 +71,6 @@ const results = [
                   <Progress value={0} max={100} variant="primary" class="h-4 max-w-full" id="quiz-progress" />
                 </div>
 
-                <!-- Questions container -->
                 <div id="questions-container">
                   {
                     questions.map((q, idx) => (
@@ -94,7 +91,7 @@ const results = [
               </CardContent>
             </Card>
 
-            <!-- Navigation buttons outside card -->
+      
             <div class="flex items-center justify-between mt-6">
               <Button id="btn-prev" variant="outline" disabled>
                 <ArrowLeft />
@@ -108,7 +105,7 @@ const results = [
             </div>
           </div>
 
-          <!-- Right: Course program stub -->
+     
           <div class="rounded-2xl bg-[#FFE699] p-6" id="course-sidebar">
             <h3 class="text-2xl font-bold mb-4 leading-snug" set:html={data.sidebar_title}></h3>
             <Image src={buyCourseImage} alt="Brain character" class="mx-auto" />
@@ -117,7 +114,7 @@ const results = [
         </div>
       </div>
 
-      <!-- Loader section (shown during calculation) -->
+
       <div id="loader-section" class="hidden">
         <div class="flex flex-col items-center justify-center py-32">
           <Spinner class="size-12 text-primary mb-6" />
@@ -126,7 +123,7 @@ const results = [
         </div>
       </div>
 
-      <!-- Results section (shown after loader) -->
+   
       {
         results.map((result) => (
           <div id={`result-${result.id}`} class:list={['hidden rounded-2xl p-6 md:p-8 xl:p-12 mb-12 overflow-hidden', result.bgColor]}>
@@ -154,7 +151,7 @@ const results = [
 <script>
   import { animate } from 'motion/mini';
 
-  // Reset all radio buttons on page load
+
   document.querySelectorAll<HTMLInputElement>('input[type="radio"]').forEach((radio) => {
     radio.checked = false;
   });
