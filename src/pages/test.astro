@@ -6,40 +6,12 @@ import { Progress } from '@/components/starwind/progress';
 import { Card, CardContent } from '@/components/starwind/card';
 import Spinner from '@/components/starwind/spinner/Spinner.astro';
 import Button from '@/components/starwind/button';
-import CoursePromo from '@/components/CoursePromo.astro';
 import { Image } from 'astro:assets';
 import { ArrowLeft, ArrowRight } from '@lucide/astro';
 import data from '@/data/test.yaml';
-import lowResultsImage from '@/assets/low-results.png';
-import mediumResultsImage from '@/assets/medium-results.png';
-import highResultsImage from '@/assets/hight-results.png';
 import buyCourseImage from '@/assets/buy-course.png';
 
 const questions = data.questions;
-
-const results = [
-  {
-    id: 'low',
-    title: 'Низкая вероятность СДВГ',
-    description: 'У вас мало признаков СДВГ. Однако, если вы испытываете трудности с концентрацией или организацией, курс всё равно может быть полезен.',
-    bgColor: 'bg-[#3edbd3]',
-    image: lowResultsImage,
-  },
-  {
-    id: 'medium',
-    title: 'Средняя вероятность СДВГ',
-    description: 'У вас есть некоторые признаки СДВГ. Рекомендуем изучить наш курс и при необходимости обратиться к специалисту.',
-    bgColor: 'bg-[#93b5f5]',
-    image: mediumResultsImage,
-  },
-  {
-    id: 'high',
-    title: 'Высокая вероятность СДВГ',
-    description: 'У вас много признаков СДВГ. Рекомендуем пройти наш курс и обратиться к врачу для официальной диагностики.',
-    bgColor: 'bg-[#f5a08c]',
-    image: highResultsImage,
-  },
-];
 ---
 
 <Layout>
@@ -57,10 +29,8 @@ const results = [
         </BreadcrumbList>
       </Breadcrumb>
 
-
       <div id="quiz-section">
         <div class="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8 items-start">
-  
           <div>
             <Card id="quiz-card" class="md:p-0">
               <CardContent class="md:px-8 md:py-8">
@@ -73,11 +43,11 @@ const results = [
 
                 <div id="questions-container">
                   {
-                    questions.map((q, idx) => (
+                    questions.map((q: any, idx: number) => (
                       <div class:list={['question-slide', idx === 0 ? '' : 'hidden']} data-question-index={idx}>
                         <h2 class="text-xl md:text-2xl font-semibold mb-5 md:mb-8">{q.text}</h2>
                         <RadioGroup orientation="vertical" id={`radio-group-${idx}`}>
-                          {q.options.map((option, optIdx) => (
+                          {q.options.map((option: any, optIdx: number) => (
                             <label class:list={['flex items-center gap-3 p-4 bg-white cursor-pointer border rounded-lg transition-colors hover:bg-muted/50', 'quiz-option']} data-question={idx}>
                               <RadioGroupItem value={String(optIdx)} name={`question-${idx}`} variant="primary" />
                               <span class="text-base">{option}</span>
@@ -91,7 +61,6 @@ const results = [
               </CardContent>
             </Card>
 
-      
             <div class="flex items-center justify-between mt-6">
               <Button id="btn-prev" variant="outline" disabled>
                 <ArrowLeft />
@@ -105,15 +74,36 @@ const results = [
             </div>
           </div>
 
-     
           <div class="rounded-2xl bg-[#FFE699] p-6" id="course-sidebar">
-            <h3 class="text-2xl font-bold mb-4 leading-snug" set:html={data.sidebar_title}></h3>
+            <h3 class="text-2xl font-bold mb-4 leading-snug" set:html={data.sidebar_title} />
             <Image src={buyCourseImage} alt="Brain character" class="mx-auto" />
             <Button variant="default" class="w-full bg-black">{data.sidebar_button}</Button>
           </div>
         </div>
       </div>
 
+      <div id="lead-form-section" class="hidden">
+        <div class="rounded-md bg-[#FFE699] max-w-[800px] min-h-[600px] mx-auto grid place-items-center place-content-center relative">
+          <div class="mx-auto w-full max-w-[350px] text-center relative z-10">
+            <h2 class="text-2xl font-semibold leading-tight mb-2">Твои результаты готовы</h2>
+            <p class="text-sm text-muted-foreground">Введите свой E-mail и мы пришлем пароль <br /> вам на почту.</p>
+
+            <form id="lead-form" class="my-6 space-y-2">
+              <input type="email" placeholder="example@gmail.com" class="h-10 w-full rounded-lg border border-border bg-white px-4 text-base outline-none transition-colors focus:border-primary" />
+              <Button type="submit" class="h-10 w-full bg-[#2A9D90]/50 text-white hover:bg-[#7cb07a]"> Зарегистрироваться </Button>
+            </form>
+
+            <p class="text-xs leading-tight text-muted-foreground">
+              Нажимая на кнопку "Зарегистрироваться", вы принимаете пользовательское соглашение, соглашаетесь с офертой, правилами сервиса, рекуррентными платежами и тарифами.
+            </p>
+          </div>
+
+          <Image src={import('@/assets/promo-top.png')} alt="promo top" quality={100} class="absolute top-20 -left-30" />
+          <Image src={import('@/assets/low-results.png')} alt="promo top" quality={100} class="absolute bottom-0 -right-60" />
+          <Image src={import('@/assets/star-decor.png')} alt="promo top" quality={100} class="absolute top-10 left-30" />
+          <Image src={import('@/assets/star-decor.png')} alt="promo top" quality={100} class="absolute bottom-10 left-10" />
+        </div>
+      </div>
 
       <div id="loader-section" class="hidden">
         <div class="flex flex-col items-center justify-center py-32">
@@ -122,35 +112,12 @@ const results = [
           <p class="text-sm text-muted-foreground mt-1">{data.loader_subtext}</p>
         </div>
       </div>
-
-   
-      {
-        results.map((result) => (
-          <div id={`result-${result.id}`} class:list={['hidden rounded-2xl p-6 md:p-8 xl:p-12 mb-12 overflow-hidden', result.bgColor]}>
-            <div class="flex justify-between items-center">
-              <div class="relative z-10 md:text-center max-w-[530px] space-y-5">
-                <h1 class="text-3xl md:text-4xl lg:text-5xl font-semibold" set:html={result.title} />
-                <p class="text-sm md:text-base opacity-80">{result.description}</p>
-                <div class="inline-flex items-center gap-2 rounded-lg border border-black/10 bg-white px-4 py-2 font-medium">
-                  <span class="result-score"></span>
-                </div>
-              </div>
-              <Image src={result.image} alt={`${result.id} result`} quality={100} class="hidden md:block -mb-12 z-0" />
-            </div>
-          </div>
-        ))
-      }
-
-      <div id="course-promo-wrapper" class="hidden mt-10 md:mt-20">
-        <CoursePromo />
-      </div>
     </div>
   </section>
 </Layout>
 
 <script>
   import { animate } from 'motion/mini';
-
 
   document.querySelectorAll<HTMLInputElement>('input[type="radio"]').forEach((radio) => {
     radio.checked = false;
@@ -167,6 +134,14 @@ const results = [
   const btnPrev = document.getElementById('btn-prev') as HTMLButtonElement;
   const quizSection = document.getElementById('quiz-section')!;
   const loaderSection = document.getElementById('loader-section')!;
+  const leadFormSection = document.getElementById('lead-form-section')!;
+  const leadForm = document.getElementById('lead-form') as HTMLFormElement | null;
+
+  if (leadForm) {
+    leadForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+    });
+  }
 
   function updateProgress() {
     const percent = Math.round((currentQuestion / totalQuestions) * 100);
@@ -251,72 +226,26 @@ const results = [
   });
 
   async function showLoader() {
-    // Fade out quiz section
     await animate(quizSection, { opacity: [1, 0] }, { duration: 0.3, ease: 'easeIn' }).finished;
     quizSection.style.display = 'none';
 
-    // Show loader
     loaderSection.style.display = '';
     loaderSection.classList.remove('hidden');
     await animate(loaderSection, { opacity: [0, 1] }, { duration: 0.3, ease: 'easeOut' }).finished;
 
-    // Wait 2-3 seconds
     const delay = 2000 + Math.random() * 1000;
     await new Promise((resolve) => setTimeout(resolve, delay));
 
-    // Fade out loader
     await animate(loaderSection, { opacity: [1, 0] }, { duration: 0.3, ease: 'easeIn' }).finished;
     loaderSection.style.display = 'none';
 
-    // Show results
-    showResults();
+    showLeadForm();
   }
 
-  async function showResults() {
-    // Hide quiz section
-    await animate(quizSection, { opacity: [1, 0] }, { duration: 0.3, ease: 'easeIn' }).finished;
-    quizSection.style.display = 'none';
-
-    let totalScore = 0;
-    for (const key in answers) {
-      totalScore += parseInt(answers[key]);
-    }
-
-    // Dynamically compute max score: (number of options - 1) per question
-    const firstGroup = slides[0]?.querySelectorAll('input[type="radio"]');
-    const optionsPerQuestion = firstGroup ? firstGroup.length : 5;
-    const maxScore = totalQuestions * (optionsPerQuestion - 1);
-
-    const percentage = maxScore > 0 ? totalScore / maxScore : 0;
-
-    const resultLow = document.getElementById('result-low')!;
-    const resultMedium = document.getElementById('result-medium')!;
-    const resultHigh = document.getElementById('result-high')!;
-
-    // Hide all result cards first
-    resultLow.classList.add('hidden');
-    resultMedium.classList.add('hidden');
-    resultHigh.classList.add('hidden');
-
-    // Show the appropriate card
-    if (percentage <= 0.33) {
-      resultLow.classList.remove('hidden');
-    } else if (percentage <= 0.66) {
-      resultMedium.classList.remove('hidden');
-    } else {
-      resultHigh.classList.remove('hidden');
-    }
-
-    // Set score text on all cards (only visible one matters)
-    const scoreText = `Ваш результат: ${totalScore} из ${maxScore} баллов`;
-    document.querySelectorAll('.result-score').forEach((el) => {
-      el.textContent = scoreText;
-    });
-
-    // Show and animate course promo
-    const coursePromoWrapper = document.getElementById('course-promo-wrapper')!;
-    coursePromoWrapper.classList.remove('hidden');
-    await animate(coursePromoWrapper, { opacity: [0, 1], y: [20, 0] }, { duration: 0.4, ease: 'easeOut' }).finished;
+  async function showLeadForm() {
+    leadFormSection.style.display = '';
+    leadFormSection.classList.remove('hidden');
+    await animate(leadFormSection, { opacity: [0, 1], y: [16, 0] }, { duration: 0.35, ease: 'easeOut' }).finished;
   }
 
   // Initial state

@@ -6,6 +6,7 @@
     "cssVariables": true
   },
   "componentDir": "src/components",
+  "utilsDir": "src/lib/utils",
   "components": [
     {
       "name": "button",
@@ -38,6 +39,10 @@
     {
       "name": "spinner",
       "version": "1.0.0"
+    },
+    {
+      "name": "checkbox",
+      "version": "1.4.2"
     }
   ]
 }
