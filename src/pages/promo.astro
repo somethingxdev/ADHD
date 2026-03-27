@@ -5,8 +5,35 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Button } from '@/components/starwind/button';
 import Checkbox from '@/components/starwind/checkbox';
 import { Card, CardContent } from '@/components/starwind/card';
-import { ArrowRight } from '@lucide/astro';
+import {
+  ArrowRight,
+  BatteryMedium,
+  Bed,
+  BookText,
+  Brain,
+  BriefcaseBusiness,
+  ClipboardList,
+  Goal,
+  Handshake,
+  HeartHandshake,
+  Infinity,
+  Lightbulb,
+  LocateFixed,
+  MessageSquare,
+  MessageSquareQuote,
+  MoonStar,
+  RefreshCw,
+  RefreshCwOff,
+  ScanSearch,
+  Search,
+  ShieldCheck,
+  Smartphone,
+  Sparkles,
+  Timer,
+  UserRoundCog,
+} from '@lucide/astro';
 import xMarkImage from '@/assets/xmark.png';
+import CoursePromo from '@/components/CoursePromo.astro';
 
 const promoPoints = [
   {
@@ -84,15 +111,33 @@ const faqItems = [
     answer: 'Условия возврата зависят от тарифа и способа оплаты. Актуальные правила лучше вынести в оферту и продублировать рядом с формой покупки.',
   },
 ];
+
+const courseFeatures = [
+  { title: 'Понимание СДВГ', icon: Brain },
+  { title: 'Самодиагностика', icon: Search },
+  { title: 'Техники фокуса', icon: Timer },
+  { title: 'Система планирования', icon: ClipboardList },
+  { title: 'Самоконтроль', icon: UserRoundCog },
+  { title: 'Управление энергией', icon: BatteryMedium },
+  { title: 'Режим сна при СДВГ', icon: Bed },
+  { title: 'СДВГ в отношениях', icon: MessageSquare },
+  { title: 'СДВГ на работе', icon: BriefcaseBusiness },
+  { title: 'Цифровой детокс', icon: Smartphone },
+  { title: 'Постановка целей', icon: LocateFixed },
+  { title: 'Привычки и рутины', icon: RefreshCw },
+  { title: 'Дневник настроения', icon: BookText },
+  { title: 'Поддержка сообщества', icon: Handshake },
+  { title: 'Пожизненный доступ', icon: Infinity },
+];
 ---
 
 <Layout>
   <section class="pt-24 pb-6">
     <div class="container">
-      <div class="flex items-start gap-10 rounded-xl bg-[#41E1DE] p-6 md:p-10 lg:gap-24 lg:p-16 relative">
-        <div class="max-w-[534px]">
-          <h1 class="text-4xl font-semibold mb-5 text-center">Ваш мозг работает иначе — <br /> и это сила, а не слабость</h1>
-          <p class="mb-10 text-center opacity-80">Курс по СДВГ поможет вам наконец сосредоточиться, перестать прокрастинировать и научиться жить в потоке — а не против него.</p>
+      <div class="flex flex-col lg:flex-row items-center lg:items-start gap-10 rounded-xl bg-[#41E1DE] p-6 md:p-10 lg:gap-24 lg:p-16 relative">
+        <div class="lg:max-w-[534px]">
+          <h1 class="text-3xl md:text-4xl font-semibold mb-5 text-center">Ваш мозг работает иначе — и это сила, а не слабость</h1>
+          <p class="mb-5 md:mb-10 text-center opacity-80">Курс по СДВГ поможет вам наконец сосредоточиться, перестать прокрастинировать и научиться жить в потоке — а не против него.</p>
           <Button variant="secondary" class="w-full mb-4"> Получить доступ к курсу за 29 ₽ <ArrowRight /> </Button>
           <p class="text-xs mb-3 opacity-80">Продолжая, вы соглашаетесь с условиями использования и офертой. Следующее списание — 450 ₽ через 7 дней.</p>
           <div class="flex items-center gap-6">
@@ -101,86 +146,107 @@ const faqItems = [
           </div>
         </div>
 
-        <div class="text-center relative z-10">
+        <div class="text-center relative z-10 grid sm:grid-cols-2 md:grid-cols-1">
           {
             promoPoints.map((point, index) => (
               <div class="py-2">
                 <Image src={xMarkImage} alt="" aria-hidden="true" class="size-4 mx-auto" />
-                <p class="text-muted-foreground">{point.problem}</p>
-                <p class="text-xl font-semibold">{point.solution}</p>
+                <p class="text-sm md:text-base text-muted-foreground">{point.problem}</p>
+                <p class="text-base md:text-xl font-semibold">{point.solution}</p>
               </div>
             ))
           }
         </div>
 
-        <Image src={import('@/assets/promo-heart.png')} class="absolute -right-70 bottom-0 max-w-lg" alt="promo" />
+        <Image src={import('@/assets/promo-heart.png')} class="hidden lg:block absolute -right-70 bottom-0 max-w-lg" alt="promo" />
       </div>
     </div>
   </section>
 
-  <section class="py-24">
+  <section class="py-8 sm:py-16 md:py-24">
     <div class="container">
-      <div class="grid grid-cols-4 gap-8">
+      <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-8">
         <div class="space-y-3 text-center">
           <span class="text-4xl font-bold block">12 453</span>
-          <p class="text-muted-foreground">человека уже прошли тест</p>
+          <p class="text-sm sm:text-base text-muted-foreground">человека уже прошли тест</p>
         </div>
         <div class="space-y-3 text-center">
           <span class="text-4xl font-bold block">87%</span>
-          <p class="text-muted-foreground">чувствуют результат за 2 недели</p>
+          <p class="text-sm sm:text-base text-muted-foreground">чувствуют результат за 2 недели</p>
         </div>
         <div class="space-y-3 text-center">
           <span class="text-4xl font-bold block">7 уроков</span>
-          <p class="text-muted-foreground">практического контента</p>
+          <p class="text-sm sm:text-base text-muted-foreground">практического контента</p>
         </div>
         <div class="space-y-3 text-center">
           <span class="text-4xl font-bold block">4.9 ★</span>
-          <p class="text-muted-foreground">средняя оценка курса</p>
+          <p class="text-sm sm:text-base text-muted-foreground">средняя оценка курса</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="py-16">
+  <section class="py-8 sm:py-16 md:py-24">
     <div class="container">
-      <h2 class="text-5xl font-semibold mb-8 md:max-w-3xl">Почему этот курс работает там, где другие не помогли</h2>
-      <div class="grid grid-cols-5 gap-8">
-        <div class="p-10 rounded-xl col-span-2 overflow-hidden relative min-h-[375px]" style="background: linear-gradient(180deg, #FFCCFA 0%, #FFE9FD 100%);">
-          <h3 class="text-2xl font-semibold mb-2">Создан специально при СДВГ</h3>
-          <p class="text-xl text-muted-foreground z-5">Не просто советы по продуктивности. Каждый урок разработан с учётом того, как работает мозг с СДВГ — короткие модули, без воды, с практикой.</p>
+      <h2 class="mb-8 text-center text-2xl md:text-3xl font-semibold md:mb-12 md:text-5xl">Всё, что вы получаете за 29 ₽</h2>
+
+      <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        {
+          courseFeatures.map(({ title, icon: Icon }) => (
+            <div class="bg-primary-foreground min-h-[56px] py-2 px-4 flex items-center gap-2 rounded-xl">
+              <Icon class="size-5 text-[#2A9D90]" />
+              <p class="text-base font-semibold text-foreground">{title}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="py-8 sm:py-16 md:py-24">
+    <div class="container">
+      <h2 class="text-2xl md:text-5xl font-semibold mb-8 md:max-w-3xl">Почему этот курс работает там, где другие не помогли</h2>
+      <div class="grid md:grid-cols-5 gap-8">
+        <div class="p-8 md:p-10 rounded-xl md:col-span-2 overflow-hidden relative min-h-[350px] md:min-h-[375px]" style="background: linear-gradient(180deg, #FFCCFA 0%, #FFE9FD 100%);">
+          <h3 class="text-xl md:text-2xl font-semibold mb-2">Создан специально при СДВГ</h3>
+          <p class="text-lg md:text-xl text-muted-foreground z-5">
+            Не просто советы по продуктивности. Каждый урок разработан с учётом того, как работает мозг с СДВГ — короткие модули, без воды, с практикой.
+          </p>
           <div class="absolute bottom-0 right-0 scale-110">
             <Image src={import('@/assets/promo-work/1.png')} alt="promo" class="w-full" />
           </div>
         </div>
-        <div class="p-10 rounded-xl col-span-3 overflow-hidden relative min-h-[375px]" style="background: linear-gradient(180deg, #FFE699 0%, #FFF5D7 100%);">
-          <h3 class="text-2xl font-semibold mb-2">Без диагноза — можно начинать сейчас</h3>
-          <p class="text-xl text-muted-foreground z-5">Не нужно ждать врача или официальной диагностики. Курс подходит всем, кто узнал себя в симптомах.</p>
+        <div class="p-8 md:p-10 rounded-xl md:col-span-3 overflow-hidden relative min-h-[350px] md:min-h-[375px]" style="background: linear-gradient(180deg, #FFE699 0%, #FFF5D7 100%);">
+          <h3 class="text-xl md:text-2xl font-semibold mb-2">Без диагноза — можно начинать сейчас</h3>
+          <p class="text-lg md:text-xl text-muted-foreground z-5">Не нужно ждать врача или официальной диагностики. Курс подходит всем, кто узнал себя в симптомах.</p>
           <div class="absolute bottom-0 left-0 right-0">
             <Image src={import('@/assets/promo-work/2.png')} alt="promo" />
           </div>
         </div>
-        <div class="p-10 rounded-xl col-span-3 overflow-hidden relative min-h-[170px]" style="background: linear-gradient(180deg, #B0E8FD 0%, #E4F8FF 100%);">
-          <h3 class="text-2xl font-semibold mb-2">Реальные инструменты, а не теория</h3>
-          <p class="text-xl text-muted-foreground z-5 max-w-[310px]">Каждый урок заканчивается конкретным заданием. Вы сразу применяете знания в жизни.</p>
-          <div class="absolute bottom-0 right-20">
+        <div class="p-8 md:p-10 rounded-xl md:col-span-3 overflow-hidden relative min-h-[170px]" style="background: linear-gradient(180deg, #B0E8FD 0%, #E4F8FF 100%);">
+          <h3 class="text-xl md:text-2xl font-semibold mb-2">Реальные инструменты, а не теория</h3>
+          <p class="text-lg md:text-xl text-muted-foreground z-5 max-w-[310px]">Каждый урок заканчивается конкретным заданием. Вы сразу применяете знания в жизни.</p>
+          <div class="hidden md:block absolute bottom-0 right-0 xl:right-20">
             <Image src={import('@/assets/promo-work/3.png')} alt="promo" />
           </div>
         </div>
-        <div class="p-10 rounded-xl col-span-2 overflow-hidden relative min-h-[170px]" style="background: linear-gradient(180deg, #FFCCFA 0%, #FFE9FD 100%);">
-          <h3 class="text-2xl font-semibold mb-2">Учитесь в своём темпе</h3>
-          <p class="text-xl text-muted-foreground z-5">Никаких дедлайнов. Открывайте уроки когда удобно — утром, в обед или в 2 ночи.</p>
+        <div class="p-8 md:p-10 rounded-xl md:col-span-2 overflow-hidden relative min-h-[170px]" style="background: linear-gradient(180deg, #FFCCFA 0%, #FFE9FD 100%);">
+          <h3 class="text-xl md:text-2xl font-semibold mb-2">Учитесь в своём темпе</h3>
+          <p class="text-lg md:text-xl text-muted-foreground z-5">Никаких дедлайнов. Открывайте уроки когда удобно — утром, в обед или в 2 ночи.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="py-16 md:py-24">
+  <section
+    class="py-16 md:py-24"
+    style="background: linear-gradient(0deg, var(--alpha-40, rgba(255, 255, 255, 0.60)) 0%, var(--alpha-40, rgba(255, 255, 255, 0.60)) 100%), var(--base-muted, #F4F4F5);">
     <div class="container">
-      <h2 class="mb-10 text-center text-3xl font-semibold md:mb-12 md:text-5xl">Они уже сделали это</h2>
-      <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <h2 class="mb-10 text-center text-2xl sm:text-3xl font-semibold md:mb-12 md:text-5xl">Они уже сделали это</h2>
+      <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {
           reviews.map((review) => (
-            <Card class="min-h-[256px] bg-white border border-border">
+            <Card class="md:min-h-[256px] bg-white border border-border">
               <CardContent class="flex h-full flex-col justify-between">
                 <p class="mb-6">{review.quote}</p>
 
@@ -202,9 +268,15 @@ const faqItems = [
     </div>
   </section>
 
+  <section class="py-16 md:py-24">
+    <div class="container">
+      <CoursePromo />
+    </div>
+  </section>
+
   <section class="py-12 md:py-24 bg-[#EF4F27]">
     <div class="container">
-      <div class="flex justify-between items-center">
+      <div class="flex flex-col md:flex-row gap-5 justify-between items-center">
         <h2 class="max-w-[540px] text-3xl font-bold md:text-4xl text-primary-foreground">Только сейчас — бесплатный бонус при оплате сегодня</h2>
         <div class="rounded-md border border-white/30 bg-[#F07C5D] p-4 md:p-5 max-w-[565px]">
           <p class="text-lg font-bold md:text-2xl text-primary-foreground mb-4">🎁 PDF-гайд: «10 техник фокуса при СДВГ»</p>

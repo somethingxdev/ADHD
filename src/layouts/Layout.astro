@@ -16,14 +16,14 @@ import meta from '@/data/meta.yaml';
     <link rel="icon" type="image/svg+xml" href={meta.favicon || '/favicon.svg'} />
     <title>{meta.title}</title>
   </head>
-  <body>
-      <div class="flex flex-col min-h-screen">
-        <Header />
-        <main class="flex-auto">
-          <slot />
-        </main>
-        <Footer />
-      </div>
+  <body class="overflow-x-hidden">
+    <div class="flex flex-col min-h-screen">
+      <Header />
+      <main class="flex-auto">
+        <slot />
+      </main>
+      <Footer />
+    </div>
   </body>
 </html>
 
